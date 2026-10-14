@@ -89,6 +89,29 @@ header{height:72px;display:flex;align-items:center;justify-content:space-between
 .run-action-btn:hover:not(:disabled){opacity:.9}.run-action-btn:disabled{opacity:.35;cursor:not-allowed}
 #st{font-size:12.5px;color:var(--text-muted);min-height:20px;margin-top:12px;display:flex;align-items:center;gap:6px}#st.err{color:var(--error)}
 .result-box{display:none;margin-top:14px;padding:14px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border)}.result-box.show{display:block}
+.res-actions{display:flex;gap:8px;align-items:stretch}.res-actions .download-btn{flex:1}.res-actions .btn-ghost-sm{padding:8px 14px;font-size:13px;font-weight:600}
+.pv-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}.pv-modal[hidden]{display:none}
+.pv-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);width:min(920px,100%);height:100%;max-height:900px;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-md)}
+.pv-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}.pv-head b{font-size:14px;word-break:break-all}.pv-head div{display:flex;gap:8px;flex-shrink:0}
+.pv-body{flex:1;overflow:auto;padding:16px;background:var(--surface-raised);display:flex;flex-direction:column;align-items:center;gap:16px}
+.pv-pg{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px}.pv-page{max-width:100%;height:auto;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-md)}
+.pv-text{white-space:pre-wrap;word-break:break-word;width:100%;font:12.5px/1.55 "JetBrains Mono",monospace;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;color:var(--text-main)}
+.cv-app{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}.cv-app[hidden],.tool-grid-layout[hidden]{display:none}
+.cv-form{display:grid;gap:12px}.cv-form h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-subtle);margin-top:6px}
+.cv-form label{display:grid;gap:4px;font-size:12.5px;font-weight:500}
+.cv-form input,.cv-form textarea,.cv-bar select{width:100%;font:inherit;color:var(--text-main);background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px}
+.cv-form textarea{min-height:72px;resize:vertical}.cv-form input:focus,.cv-form textarea:focus{border-color:var(--text-main);outline:none}
+.cv-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cv-item{border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;display:grid;gap:8px;background:var(--surface-raised)}
+.cv-side{position:sticky;top:96px}.cv-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.cv-bar select{width:auto}
+.cv-prev{background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;max-height:75vh;overflow:auto;display:grid;gap:12px;justify-items:center}
+@media(max-width:860px){.cv-app{grid-template-columns:1fr}.cv-side{position:static}.cv-row{grid-template-columns:1fr}}
+.cv-inv{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;cursor:pointer}
+.btn-ghost-sm.on{background:var(--accent);color:var(--accent-contrast)}.pv-body.inv .pv-page{filter:invert(1) hue-rotate(180deg)}
+.out-opts{display:grid;gap:10px;margin-top:16px;font-size:13px}.out-opts label{display:grid;gap:6px;font-weight:500}.out-opts label.chk{display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer}
+.out-opts input[type=text]{font:inherit;font-size:13px;color:var(--text-main);background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 10px;width:100%}
+.btn-row{display:flex;gap:8px;margin-top:18px}.btn-row .run-action-btn{margin-top:0;flex:1}.btn-row .btn-ghost-sm{padding:0 16px;font-size:13px;font-weight:600}
+@media(min-width:861px){.pv-modal{background:transparent;pointer-events:none;justify-content:flex-end;align-items:stretch;padding:calc(88px + env(safe-area-inset-top,0px)) 16px 16px}.pv-box{pointer-events:auto;width:440px;max-height:none;height:auto;box-shadow:0 12px 40px rgba(0,0,0,.25)}}
+.pv-num,.pv-note{font-size:12px;color:var(--text-muted)}.pv-note.err{color:var(--error)}
 .result-box b{display:block;font-size:13px;word-break:break-all;color:var(--text-main)}.result-box span{color:var(--text-muted);font-size:12px;display:block;margin:2px 0 10px}
 .download-btn{display:block;text-align:center;text-decoration:none;background:var(--accent);color:var(--accent-contrast);border-radius:6px;padding:8px;font-size:13px;font-weight:600;transition:opacity .15s ease}.download-btn:hover{opacity:.9}
 .features-section{padding:48px 0 64px;border-top:1px solid var(--border)}
@@ -130,14 +153,14 @@ footer{border-top:1px solid var(--border);padding:40px 0 32px;color:var(--text-m
 <label class="dropzone-box" id="drop"><div class="drop-icon-wrap"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg></div><div class="drop-title" id="dt">Drop files here</div><div class="drop-sub" id="ds">or click to browse from device</div><input id="file" type="file"/></label>
 <div class="file-actions-bar" hidden id="bulk"><div class="action-btns-group"><button class="btn-ghost-sm" id="bAll">Select all</button><button class="btn-ghost-sm" id="bNone">Clear selection</button><button class="btn-ghost-sm" id="bRot">Rotate</button><button class="btn-ghost-sm" id="bDel" style="color:var(--error)">Delete</button></div><span class="selection-count" id="bCount"></span></div>
 <div class="cards-grid" id="grid"></div></div>
-<aside class="tool-options-panel"><div class="opts-title">Options</div><div class="opts-form" id="opts"></div><button class="run-action-btn" disabled id="run">Execute Tool</button><div id="st" role="status"></div>
-<div class="result-box" id="res"><b id="rn">Document ready</b><span id="ri">File details</span><a class="download-btn" href="#" id="rl">Download Result</a></div></aside></div></main></div></section>
+<aside class="tool-options-panel"><div class="opts-title">Options</div><div class="opts-form" id="opts"></div><div class="out-opts"><label>Filename after conversion<input type="text" id="fname" placeholder="Same as original"></label><label class="chk"><input type="checkbox" id="autoPv" checked> Open preview automatically</label></div><div class="btn-row"><button class="run-action-btn" disabled id="run">Execute Tool</button><button class="btn-ghost-sm" id="rs" type="button">Reset</button></div><div id="st" role="status"></div>
+<div class="result-box" id="res"><b id="rn">Document ready</b><span id="ri">File details</span><div class="res-actions"><button class="btn-ghost-sm" id="rp" type="button">Preview</button><a class="download-btn" href="#" id="rl">Download Result</a></div></div></aside></div><div class="cv-app" hidden id="cvApp"><div class="cv-form" id="cvForm"></div><div class="cv-side"><div class="cv-bar"><select id="cvTpl" aria-label="Template"><option value="classic">Classic</option><option value="centered">Centered</option><option value="banner">Banner</option><option value="serif">Serif</option></select><select id="cvAcc" aria-label="Accent color"><option value="#2563eb">Blue</option><option value="#059669">Green</option><option value="#7c3aed">Purple</option><option value="#111827">Black</option></select><select id="cvSize" aria-label="Text size"><option value="9">Compact</option><option value="10">Normal</option><option value="11">Large</option></select><label class="cv-inv"><input type="checkbox" id="cvDark"> Dark / invert</label><button class="btn-primary" id="cvDl" type="button">Download PDF</button></div><div class="cv-prev" id="cvPrev"></div></div></div></main></div></section><div class="pv-modal" hidden id="pv" role="dialog" aria-modal="true" aria-label="Preview"><div class="pv-box"><div class="pv-head"><b id="pvt">Preview</b><div><button class="btn-ghost-sm" id="pvi" type="button" title="Invert preview colors">Invert</button><button class="btn-ghost-sm" id="pvd" type="button">Download</button><button class="btn-ghost-sm" id="pvc" type="button">Close</button></div></div><div class="pv-body" id="pvb"></div></div></div>
 <section class="features-section" id="features"><h3 class="features-title">Private by design, quiet by default</h3><p class="features-sub">Engineered to eliminate cloud latency and privacy compliance worries.</p>
 <div class="feature-cards-grid"><div class="f-card"><div class="f-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Never touches a server</h4><p>Contracts, health records, tax returns, and passports stay exclusively inside your browser's private memory pool.</p></div>
 <div class="f-card"><div class="f-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h4>Instant local execution</h4><p>No waiting on remote worker queues or slow upload pipes. High-resolution PDFs are parsed and compiled instantly.</p></div>
 <div class="f-card"><div class="f-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg></div><h4>Zero accounts or trackers</h4><p>No account creation, cookies, paywalls, or watermarks placed on your documents. Free and open client tooling.</p></div></div>
-<div class="metrics-strip"><div class="metric-item"><b>0 KB</b><span>Sent to external clouds</span></div><div class="metric-item"><b>6</b><span>Dedicated PDF utilities</span></div><div class="metric-item"><b>100%</b><span>In-browser processing</span></div><div class="metric-item"><b>MIT</b><span>Open-source foundations</span></div></div></section>
-<footer><div class="footer-top"><div><b>EditifyPDF</b><p style="margin-top:6px;max-width:320px;line-height:1.5">Modern, distraction-free document utilities running completely on your device.</p></div>
+<div class="metrics-strip"><div class="metric-item"><b>0 KB</b><span>Sent to external clouds</span></div><div class="metric-item"><b>13</b><span>Dedicated PDF utilities</span></div><div class="metric-item"><b>100%</b><span>In-browser processing</span></div><div class="metric-item"><b>MIT</b><span>Open-source foundations</span></div></div></section>
+<footer><div class="footer-top"><div><b>EditifyPDF</b><p style="margin-top:6px;max-width:320px;line-height:1.5">Modern, distraction-free document utilities running completely on your device.</p><a href="https://github.com/Prakhr-Joshi" rel="noreferrer" target="_blank" style="margin-top:10px">GitHub: Prakhr-Joshi</a></div>
 <div><h5>Toolkit</h5><a href="#merge">Merge documents</a><a href="#organize">Organize pages</a><a href="#compress">Compress PDF</a><a href="#stamp">Watermark &amp; stamps</a></div>
 <div><h5>Libraries</h5><a href="https://pdf-lib.js.org/" rel="noreferrer" target="_blank">pdf-lib</a><a href="https://mozilla.github.io/pdf.js/" rel="noreferrer" target="_blank">PDF.js</a><a href="https://stuk.github.io/jszip/" rel="noreferrer" target="_blank">JSZip</a></div></div>
 <div class="footer-bottom"><span>Files are processed locally and never stored.</span><span class="mono">EditifyPDF v2.0 • Minimal Edition</span></div></footer></div>
@@ -158,16 +181,23 @@ organize:{n:"Organize pages",d:"Rearrange, rotate, or remove individual pages. C
 img2pdf:{n:"Images to PDF",d:"Convert PNG, JPG, or WebP images into a clean standardized PDF.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,acc:"image/*",multi:1,order:1,btn:"Create PDF",run:img2pdf,opts:[{id:"size",t:"sel",l:"Page format",o:[["fit","Match image dimensions"],["a4","Standard A4 with margins"]]}]},
 pdf2img:{n:"PDF to images",d:"Render pages to crisp image formats. Multi-page outputs are bundled in a zip archive.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="2"/></svg>`,acc:PDFA,btn:"Convert pages",run:pdf2img,opts:[{id:"fmt",t:"sel",l:"Image format",o:[["png","PNG (Lossless)"],["jpeg","JPG (Smaller)"]]},{id:"scale",t:"sel",l:"Resolution",o:[["1.5","Standard (1.5x)"],["2.5","High Definition (2.5x)"],["1","Low (1.0x)"]]}]},
 compress:{n:"Compress PDF",d:"Reduce document size by optimizing internal image assets without destroying text quality.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`,acc:PDFA,btn:"Compress document",run:compress,opts:[{id:"mode",t:"sel",l:"Compression mode",o:[["keep","Preserve selectable text"],["flat","Flatten to image pages (maximum reduction)"]]},{id:"q",t:"range",l:"Image quality",min:30,max:95,v:70,u:"%"},{id:"sc",t:"range",l:"Resolution scale",min:30,max:100,v:70,u:"%"}]},
-stamp:{n:"Watermark & numbering",d:"Embed clean diagonal watermarks and page numbering cleanly across pages.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,acc:PDFA,btn:"Apply watermark",run:stamp,opts:[{id:"txt",t:"text",l:"Watermark phrase",v:"CONFIDENTIAL"},{id:"fs",t:"range",l:"Font size",min:20,max:140,v:56,u:" pt"},{id:"op",t:"range",l:"Opacity",min:5,max:80,v:18,u:"%"},{id:"num",t:"chk",l:"Include page numbers at footer"}]}
+stamp:{n:"Watermark & numbering",d:"Embed clean diagonal watermarks and page numbering cleanly across pages.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,acc:PDFA,btn:"Apply watermark",run:stamp,opts:[{id:"txt",t:"text",l:"Watermark phrase",v:"CONFIDENTIAL"},{id:"fs",t:"range",l:"Font size",min:20,max:140,v:56,u:" pt"},{id:"op",t:"range",l:"Opacity",min:5,max:80,v:18,u:"%"},{id:"num",t:"chk",l:"Include page numbers at footer"}]},
+split:{n:"Split PDF",d:"Cut a PDF into separate files by page ranges, fixed size, or one file per page. Multiple files download as a zip.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>`,acc:PDFA,btn:"Split PDF",run:split,opts:[{id:"mode",t:"sel",l:"Split method",o:[["ranges","Custom page ranges"],["every","Every N pages"],["each","One file per page"]]},{id:"rng",t:"text",l:"Ranges (e.g. 1-3, 5, 7-9)",v:"1-3, 5"},{id:"n",t:"range",l:"Pages per file (Every N)",min:1,max:50,v:2,u:""}]},
+crop:{n:"Crop margins",d:"Trim white space from the edges of every page. Values are in points (72 pt = 1 inch).",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>`,acc:PDFA,btn:"Crop pages",run:crop,opts:[{id:"t",t:"range",l:"Top",min:0,max:200,v:0,u:" pt"},{id:"b",t:"range",l:"Bottom",min:0,max:200,v:0,u:" pt"},{id:"l",t:"range",l:"Left",min:0,max:200,v:0,u:" pt"},{id:"r",t:"range",l:"Right",min:0,max:200,v:0,u:" pt"}]},
+pdf2text:{n:"PDF to text",d:"Extract selectable text from a PDF into a plain .txt file. Scanned PDFs without a text layer cannot be read.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>`,acc:PDFA,btn:"Extract text",run:pdf2text,opts:[{id:"div",t:"chk",l:"Add a divider before each page"}]},
+txt2pdf:{n:"Text to PDF",d:"Turn a plain .txt file into a clean, paginated A4 PDF with automatic line wrapping.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,acc:".txt,text/plain",txt:1,btn:"Create PDF",run:txt2pdf,opts:[{id:"fs",t:"range",l:"Font size",min:8,max:24,v:11,u:" pt"}]},
+meta:{n:"Edit properties",d:"Set or clear the title, author, subject and keywords stored inside a PDF. Blank fields keep their current value.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,acc:PDFA,btn:"Save properties",run:meta,opts:[{id:"mt",t:"text",l:"Title",v:""},{id:"ma",t:"text",l:"Author",v:""},{id:"ms",t:"text",l:"Subject",v:""},{id:"mk",t:"text",l:"Keywords (comma separated)",v:""},{id:"clr",t:"chk",l:"Clear all properties instead"}]},
+cv:{n:"CV editor",d:"Build a clean, ATS-friendly resume with a live preview and export it as a text-based PDF. Your draft is saved in this browser only.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,acc:"",cv:1,btn:"Create"},
+invert:{n:"Invert colors",d:"Create a dark-mode copy of a PDF for comfortable night reading. Pages become images, so text is no longer selectable.",ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`,acc:PDFA,btn:"Invert colors",run:invert,opts:[{id:"imode",t:"sel",l:"Mode",o:[["smart","Dark reading (keeps image colors)"],["full","Full negative"]]},{id:"isc",t:"sel",l:"Resolution",o:[["1.5","Standard"],["2","High"],["1","Low"]]},{id:"iq",t:"range",l:"Image quality",min:50,max:95,v:80,u:"%"}]}
 };
 const $=s=>document.querySelector(s),E=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 let T,items=[],busy=0,uid=0,srcFile=null,dragI=null,wready=0,cur=null,curK;
-const GROUPS=[["Structure",["merge","organize"]],["Conversion",["img2pdf","pdf2img"]],["Refine",["compress","stamp"]]];
+const GROUPS=[["Create",["cv"]],["Structure",["merge","organize","split","crop"]],["Conversion",["img2pdf","pdf2img","pdf2text","txt2pdf"]],["Refine",["compress","stamp","meta","invert"]]];
 for(const[g,ks]of GROUPS){$("#rail").append(E("div","rail-group-title",g));for(const k of ks){const b=E("button","tool-tab");b.dataset.k=k;b.innerHTML=`<span class="tab-icon">${TOOLS[k].ic}</span><span>${TOOLS[k].n}</span>`;b.onclick=()=>{location.hash=k};$("#rail").append(b)}}
 addEventListener("hashchange",route);
 function route(){const h=location.hash.slice(1),k=TOOLS[h]?h:(curK||"merge");if(k!=curK)openTool(k);const el=!TOOLS[h]&&h&&document.getElementById(h);if(el)el.scrollIntoView({behavior:"smooth"})}
 function openTool(k){
- T=TOOLS[k];curK=k;items=[];srcFile=null;clearRes();status("");
+ T=TOOLS[k];curK=k;items=[];srcFile=null;clearRes();status("");$(".tool-grid-layout").hidden=!!T.cv;$("#cvApp").hidden=!T.cv;if(T.cv)setTimeout(cvInit,0);
  document.querySelectorAll("#rail .tool-tab").forEach(b=>b.classList.toggle("active",b.dataset.k==k));
  document.title=`${T.n} — EditifyPDF`;$("#tt").textContent=T.n;$("#td").textContent=T.d;$("#run").textContent=T.btn;
  const f=$("#file");f.value="";f.accept=T.acc;f.multiple=!!T.multi;
@@ -190,8 +220,8 @@ $("#file").onchange=e=>{add(e.target.files);e.target.value=""};
 drop.addEventListener("drop",e=>add(e.dataTransfer.files));
 addEventListener("dragover",e=>e.preventDefault());addEventListener("drop",e=>e.preventDefault());
 async function add(list){
- let a=[...list].filter(f=>T.acc=="image/*"?f.type.startsWith("image/"):(f.type==PDF||/\.pdf$/i.test(f.name)));
- if(!a.length)return status(T.acc=="image/*"?"Please choose image files.":"Please choose valid PDF files.",1);
+ let a=[...list].filter(f=>T.acc=="image/*"?f.type.startsWith("image/"):T.txt?(f.type.startsWith("text/")||/\.txt$/i.test(f.name)):(f.type==PDF||/\.pdf$/i.test(f.name)));
+ if(!a.length)return status(T.acc=="image/*"?"Please choose image files.":(T.txt?"Please choose a .txt file.":"Please choose valid PDF files."),1);
  status("");clearRes();
  if(!T.multi){a=[a[0]];items=[]}
  if(T.pages){srcFile=a[0];return loadPages(a[0])}
@@ -199,7 +229,7 @@ async function add(list){
  items.push(...fresh);render();
  for(const it of fresh){
   if(it.f.type.startsWith("image/"))setThumb(it,await dataUrl(it.f));
-  else try{const d=await pdfjs(it.f);it.sub=`${d.numPages} pgs · ${fmt(it.f.size)}`;setThumb(it,await thumb(d,1));render()}catch(e){it.sub="Unreadable";render()}
+  else if(T.txt){it.sub=fmt(it.f.size);render()}else try{const d=await pdfjs(it.f);it.sub=`${d.numPages} pgs · ${fmt(it.f.size)}`;setThumb(it,await thumb(d,1));render()}catch(e){it.sub="Unreadable";render()}
  }
 }
 function setThumb(it,u){it.thumb=u;if(it.img)it.img.src=u}
@@ -248,7 +278,40 @@ $("#bDel").onclick=()=>{items=items.filter(x=>!x.sel);render();clearRes()};
 function fmt(n){return n<1024?n+" B":n<1048576?(n/1024).toFixed(1)+" KB":(n/1048576).toFixed(2)+" MB"}
 function status(m,e){const s=$("#st");s.textContent=m;s.className=e?"err":""}
 function clearRes(){$("#res").classList.remove("show");cur=null}
-function done(blob,name,info){clearRes();cur={blob,name};$("#rn").textContent=name;$("#ri").textContent=info||fmt(blob.size);$("#res").classList.add("show")}
+function done(blob,name,info){clearRes();const fn=($('#fname').value||'').trim().split('/').join('');if(fn){const dot=name.lastIndexOf('.'),ext=dot>-1?name.slice(dot):'';name=(ext&&fn.toLowerCase().endsWith(ext.toLowerCase())?fn.slice(0,fn.length-ext.length):fn)+ext}cur={blob,name};$("#rn").textContent=name;$("#ri").textContent=info||fmt(blob.size);$("#res").classList.add("show");if($('#autoPv')&&$('#autoPv').checked)openPv()}
+/* preview */
+const pv=$('#pv'),pvb=$('#pvb');let pvTok=0,pvUrls=[];
+function closePv(){pvTok++;pv.hidden=true;pvb.innerHTML='';pvUrls.forEach(u=>URL.revokeObjectURL(u));pvUrls=[]}
+function pvImg(b,label){const u=URL.createObjectURL(b);pvUrls.push(u);const w=E('div','pv-pg'),i=E('img','pv-page');i.src=u;i.alt=label;w.append(i);if(label)w.append(E('span','pv-num',label));pvb.append(w)}
+async function openPv(){
+ if(!cur)return;const my=++pvTok,b=cur.blob,name=cur.name;
+ $('#pvt').textContent=name;pvb.innerHTML='';pv.hidden=false;
+ const note=E('div','pv-note','Loading preview…');pvb.append(note);
+ try{
+  if(b.type===PDF){
+   const d=await pdfjs(new File([b],name,{type:PDF}));
+   for(let n=1;n<=d.numPages;n++){
+    if(my!==pvTok)return;
+    note.textContent='Rendering page '+n+' of '+d.numPages+'…';
+    const c=await renderPage(d,n,1.5);c.className='pv-page';
+    const w=E('div','pv-pg');w.append(c,E('span','pv-num','Page '+n+' / '+d.numPages));pvb.append(w)}
+  }else if(b.type.startsWith('image/')){pvImg(b,'')}
+  else if(b.type.startsWith('text/')){const pre=E('pre','pv-text');pre.textContent=await b.text();pvb.append(pre)}
+  else{
+   const z=await JSZip.loadAsync(b),names=Object.keys(z.files).filter(k=>!z.files[k].dir&&/\.(png|jpe?g)$/i.test(k)).sort();
+   if(!names.length){note.textContent='Preview is not available for this archive. Download it to open the files.';return}
+   for(let i=0;i<names.length;i++){
+    if(my!==pvTok)return;
+    note.textContent='Loading image '+(i+1)+' of '+names.length+'…';
+    const ib=await z.files[names[i]].async('blob');
+    pvImg(new Blob([ib],{type:names[i].toLowerCase().endsWith('.png')?'image/png':'image/jpeg'}),names[i])}
+  }
+  if(my===pvTok)note.remove();
+ }catch(e){if(my===pvTok){note.textContent=e.message||'Could not build preview.';note.className='pv-note err'}}
+}
+$('#rp').onclick=openPv;$('#rs').onclick=()=>{$('#fname').value='';openTool(curK)};$('#pvi').onclick=e=>{pvb.classList.toggle('inv');e.currentTarget.classList.toggle('on')};$('#pvc').onclick=closePv;$('#pvd').onclick=()=>$('#rl').click();
+pv.addEventListener('click',e=>{if(e.target===pv)closePv()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!pv.hidden)closePv()});
 $("#rl").onclick=async e=>{e.preventDefault();if(!cur)return;
  let d=null;try{d=await claude.use("downloads")}catch(x){}
  if(d){try{await d.save({filename:cur.name,data:cur.blob});return status("Saved.")}catch(x){if(x&&x.code=="declined")return status("Download cancelled.",1)}}
@@ -338,6 +401,127 @@ async function compress(){
  if(b.length>=f.size*.97)throw Error(`This PDF is already well optimized (${fmt(f.size)}), so compressing would not make it smaller.`+(flat?"":" Try Flatten to images for a smaller file, though text will no longer be selectable."));
  const pc=Math.round((1-b.length/f.size)*100);
  done(new Blob([b],{type:PDF}),base(f)+"-compressed.pdf",`${fmt(f.size)} → ${fmt(b.length)} (${pc}% smaller)${extra}`)}
+function parseRanges(s,max){
+ const out=[];
+ for(const part of s.split(',').map(x=>x.trim()).filter(Boolean)){
+  const p=part.split('-').map(x=>Number(x.trim())),a=p[0],b=p.length>1?p[1]:p[0];
+  if(p.length>2||!Number.isInteger(a)||!Number.isInteger(b))throw Error('Invalid range "'+part+'". Use a format like 1-3, 5.');
+  if(a<1||b<a||b>max)throw Error('Range "'+part+'" is outside this PDF (pages 1-'+max+').');
+  out.push(Array.from({length:b-a+1},(_,i)=>a-1+i))}
+ if(!out.length)throw Error('Enter at least one page range.');
+ return out}
+async function split(){
+ const f=items[0].f,src=await lib(f),n=src.getPageCount(),mode=opt('mode');let groups;
+ if(mode==='each')groups=src.getPageIndices().map(i=>[i]);
+ else if(mode==='every'){const k=+opt('n');groups=[];for(let i=0;i<n;i+=k)groups.push(Array.from({length:Math.min(k,n-i)},(_,j)=>i+j))}
+ else groups=parseRanges(opt('rng'),n);
+ const files=[];
+ for(let g=0;g<groups.length;g++){status('Creating file '+(g+1)+' of '+groups.length+'…');
+  const out=await PDFLib.PDFDocument.create();(await out.copyPages(src,groups[g])).forEach(p=>out.addPage(p));files.push(await out.save())}
+ if(files.length===1)return done(new Blob([files[0]],{type:PDF}),base(f)+'-pages.pdf',groups[0].length+' pages · '+fmt(files[0].length));
+ const z=new JSZip(),pad=String(files.length).length;
+ files.forEach((b,i)=>z.file(base(f)+'-part'+String(i+1).padStart(pad,'0')+'.pdf',b));
+ const zb=await z.generateAsync({type:'blob'});done(zb,base(f)+'-split.zip',files.length+' PDFs · '+fmt(zb.size))}
+async function crop(){
+ const f=items[0].f,doc=await lib(f),t=+opt('t'),b=+opt('b'),l=+opt('l'),r=+opt('r');
+ if(!(t+b+l+r))throw Error('Set at least one margin above 0.');
+ doc.getPages().forEach(p=>{const m=p.getMediaBox(),w=m.width-l-r,h=m.height-t-b;
+  if(w<20||h<20)throw Error('Those margins are larger than the page.');
+  p.setCropBox(m.x+l,m.y+b,w,h)});
+ const out=await doc.save();done(new Blob([out],{type:PDF}),base(f)+'-cropped.pdf',doc.getPageCount()+' pages · '+fmt(out.length))}
+async function pdf2text(){
+ const f=items[0].f,d=await pdfjs(f),div=opt('div');let txt='',has=false;
+ for(let n=1;n<=d.numPages;n++){status('Reading page '+n+' of '+d.numPages+'…');
+  const tc=await(await d.getPage(n)).getTextContent(),t=tc.items.map(i=>i.str+(i.hasEOL?'\n':' ')).join('').trim();
+  if(t)has=true;txt+=(div?'--- Page '+n+' ---\n':'')+t+'\n\n'}
+ if(!has)throw Error('No selectable text found. This looks like a scanned PDF, and OCR is not available in this version.');
+ const b=new Blob([txt.trim()+'\n'],{type:'text/plain'});done(b,base(f)+'.txt',d.numPages+' pages · '+fmt(b.size))}
+async function txt2pdf(){
+ const f=items[0].f,raw=await f.text(),fs=+opt('fs'),doc=await PDFLib.PDFDocument.create(),font=await doc.embedFont(PDFLib.StandardFonts.Helvetica);
+ const W=595.28,H=841.89,M=56,maxW=W-2*M,lh=fs*1.4;
+ const clean=Array.from(raw.split('\r').join('').split('\t').join('    ')).map(c=>{const k=c.codePointAt(0);return(k>=32&&k<=126)||(k>=160&&k<=255)||c==='\n'?c:'?'}).join('');
+ const lines=[];
+ for(const para of clean.split('\n')){
+  if(!para.trim()){lines.push('');continue}
+  let line='';
+  for(const w of para.split(' ')){
+   const t=line?line+' '+w:w;
+   if(font.widthOfTextAtSize(t,fs)<=maxW)line=t;
+   else{if(line)lines.push(line);line=w;
+    while(font.widthOfTextAtSize(line,fs)>maxW){let k=line.length-1;while(k>1&&font.widthOfTextAtSize(line.slice(0,k),fs)>maxW)k--;lines.push(line.slice(0,k));line=line.slice(k)}}}
+  lines.push(line)}
+ if(!clean.trim())throw Error('This text file is empty.');
+ let page,y=0;const per=Math.floor((H-2*M)/lh);
+ lines.forEach((l,i)=>{if(i%per===0){page=doc.addPage([W,H]);y=H-M-fs}
+  if(l)page.drawText(l,{x:M,y,size:fs,font});y-=lh});
+ const b=await doc.save();done(new Blob([b],{type:PDF}),base(f)+'.pdf',doc.getPageCount()+' pages · '+fmt(b.length))}
+async function meta(){
+ const f=items[0].f,doc=await lib(f),clr=opt('clr');
+ const set=(fn,id)=>{const x=opt(id).trim();if(clr)fn('');else if(x)fn(x)};
+ set(x=>doc.setTitle(x),'mt');set(x=>doc.setAuthor(x),'ma');set(x=>doc.setSubject(x),'ms');
+ set(x=>doc.setKeywords(x?x.split(',').map(s=>s.trim()).filter(Boolean):[]),'mk');
+ doc.setProducer('EditifyPDF');doc.setCreator('EditifyPDF');
+ const out=await doc.save();done(new Blob([out],{type:PDF}),base(f)+'-properties.pdf',(clr?'Properties cleared · ':'Properties saved · ')+fmt(out.length))}
+/* cv editor */
+const CVK='editify-cv';
+let cv={name:'Your Name',title:'Software Developer',email:'you@example.com',phone:'+91 00000 00000',loc:'City, Country',links:'github.com/username',summary:'Motivated developer with experience building web applications. Passionate about clean code and privacy-first tools.',skills:'Python, JavaScript, HTML/CSS, Git, SQL',exp:[{role:'Junior Developer',org:'Company Name',dates:'2024 - Present',pts:'Built features used by 1,000+ users\nFixed bugs and improved page load time'}],edu:[{role:'B.Tech in Computer Science',org:'University Name',dates:'2021 - 2025',pts:''}],accent:'#2563eb',size:'10',tpl:'classic',dark:false};
+try{const s=JSON.parse(localStorage.getItem(CVK));if(s&&s.exp&&s.edu)cv=s}catch(e){}
+let cvTimer=0,cvTok=0,cvBuilt=false;
+function cvSave(){try{localStorage.setItem(CVK,JSON.stringify(cv))}catch(e){}clearTimeout(cvTimer);cvTimer=setTimeout(cvRender,400)}
+function cvField(parent,label,get,set,multi){const l=E('label','',label),i=E(multi?'textarea':'input');if(!multi)i.type='text';i.value=get();i.oninput=()=>{set(i.value);cvSave()};l.append(i);parent.append(l)}
+function cvList(host,key,title,ph){
+ host.innerHTML='';host.append(E('h4','',title));
+ cv[key].forEach((it,idx)=>{const box=E('div','cv-item'),r=E('div','cv-row');
+  cvField(r,ph[0],()=>it.role,v=>it.role=v);cvField(r,ph[1],()=>it.org,v=>it.org=v);box.append(r);
+  cvField(box,'Dates',()=>it.dates,v=>it.dates=v);cvField(box,'Details (one bullet per line)',()=>it.pts,v=>it.pts=v,1);
+  const rm=E('button','btn-ghost-sm','Remove');rm.type='button';rm.onclick=()=>{cv[key].splice(idx,1);cvList(host,key,title,ph);cvSave()};box.append(rm);host.append(box)});
+ const add=E('button','btn-ghost-sm','+ Add');add.type='button';add.onclick=()=>{cv[key].push({role:'',org:'',dates:'',pts:''});cvList(host,key,title,ph);cvSave()};host.append(add)}
+function cvInit(){
+ if(!cvBuilt){cvBuilt=true;const f=$('#cvForm'),top=E('div','cv-row');
+  [['Full name','name'],['Job title','title'],['Email','email'],['Phone','phone'],['Location','loc'],['Links (GitHub, LinkedIn)','links']].forEach(([l,k])=>cvField(top,l,()=>cv[k],v=>cv[k]=v));
+  f.append(top);cvField(f,'Summary',()=>cv.summary,v=>cv.summary=v,1);cvField(f,'Skills (comma separated)',()=>cv.skills,v=>cv.skills=v,1);
+  const ex=E('div','cv-form'),ed=E('div','cv-form');f.append(ex,ed);
+  cvList(ex,'exp','Experience',['Role','Company']);cvList(ed,'edu','Education',['Degree','School']);
+  $('#cvAcc').onchange=e=>{cv.accent=e.target.value;cvSave()};$('#cvTpl').onchange=e=>{cv.tpl=e.target.value;cvSave()};$('#cvDark').onchange=e=>{cv.dark=e.target.checked;cvSave()};$('#cvSize').onchange=e=>{cv.size=e.target.value;cvSave()};
+  $('#cvDl').onclick=async()=>{try{const bytes=await cvPdf();cur={blob:new Blob([bytes],{type:PDF}),name:(cv.name.trim()||'cv').split(' ').join('-')+'-CV.pdf'};$('#rl').click()}catch(e){$('#cvPrev').textContent=e.message||'Could not create the PDF.'}}}
+ $('#cvAcc').value=cv.accent;$('#cvSize').value=cv.size;$('#cvTpl').value=cv.tpl||'classic';$('#cvDark').checked=!!cv.dark;cvRender()}
+const cvClean=s=>Array.from(String(s||'').split('\r').join('').split('\t').join('  ')).map(c=>{const k=c.codePointAt(0);return(k>=32&&k<=126)||(k>=160&&k<=255)||c==='\n'?c:(k===8226||k===8211||k===8212?'-':'?')}).join('');
+async function cvPdf(){
+ const doc=await PDFLib.PDFDocument.create(),SF=PDFLib.StandardFonts,serif=cv.tpl==='serif',ctr=cv.tpl==='centered',ban=cv.tpl==='banner',R=await doc.embedFont(serif?SF.TimesRoman:SF.Helvetica),B=await doc.embedFont(serif?SF.TimesRomanBold:SF.HelveticaBold),I=await doc.embedFont(serif?SF.TimesRomanItalic:SF.HelveticaOblique);
+ const W=595.28,H=841.89,M=48,fs=+cv.size,maxW=W-2*M,hx=((cv.dark&&cv.accent==='#111827')?'#e5e7eb':cv.accent).replace('#',''),rgb=PDFLib.rgb,col=rgb(parseInt(hx.slice(0,2),16)/255,parseInt(hx.slice(2,4),16)/255,parseInt(hx.slice(4,6),16)/255),dark=!!cv.dark,gray=dark?rgb(.72,.72,.78):rgb(.35,.35,.4),ink=dark?rgb(.93,.93,.95):rgb(.09,.09,.11),bg=rgb(.07,.07,.09),hcol=serif?ink:col;
+ const np=()=>{const p=doc.addPage([W,H]);if(dark)p.drawRectangle({x:0,y:0,width:W,height:H,color:bg});return p};let page=np(),y=H-M;
+ const need=n=>{if(y-n<M){page=np();y=H-M}};
+ const wrap=(t,font,size,w)=>{const out=[];for(const para of cvClean(t).split('\n')){let line='';for(const word of para.split(' ')){const x=line?line+' '+word:word;if(font.widthOfTextAtSize(x,size)<=w)line=x;else{if(line)out.push(line);line=word}}out.push(line)}return out};
+ const text=(t,font,size,color,al)=>{for(const l of wrap(t,font,size,maxW)){need(size*1.4);y-=size;page.drawText(l,{x:al==='c'?M+(maxW-font.widthOfTextAtSize(l,size))/2:M,y,size,font,color});y-=size*.38}};
+ const head=t=>{y-=fs*.7;need(fs*3);y-=fs*1.1;const u=t.toUpperCase();page.drawText(u,{x:ctr?M+(maxW-B.widthOfTextAtSize(u,fs+1))/2:M,y,size:fs+1,font:B,color:hcol});y-=4;page.drawLine({start:{x:M,y},end:{x:W-M,y},thickness:.8,color:ctr?gray:hcol});y-=fs*.5};
+ const rowLR=(l,r,size)=>{need(size*1.5);y-=size;const rt=cvClean(r),rw=rt?I.widthOfTextAtSize(rt,size):0;page.drawText(cvClean(l),{x:M,y,size,font:B,color:ink});if(rt)page.drawText(rt,{x:W-M-rw,y,size,font:I,color:gray});y-=size*.45};
+ const bullets=t=>{for(const raw of cvClean(t).split('\n')){const s=raw.trim();if(!s)continue;wrap(s,R,fs,maxW-14).forEach((l,i)=>{need(fs*1.4);y-=fs;if(i===0)page.drawText('-',{x:M+3,y,size:fs,font:R,color:gray});page.drawText(l,{x:M+14,y,size:fs,font:R,color:ink});y-=fs*.38})}};
+ {const nm=cvClean(cv.name),ct=[cv.email,cv.phone,cv.loc,cv.links].map(s=>s.trim()).filter(Boolean).join('  |  ');if(ban){const bh=96,wc=rgb(1,1,1);page.drawRectangle({x:0,y:H-bh,width:W,height:bh,color:col});y=H-26;if(nm.trim()){y-=22;page.drawText(nm,{x:M,y,size:24,font:B,color:wc});y-=6}if(cv.title.trim()){y-=fs+2;page.drawText(cvClean(cv.title),{x:M,y,size:fs+2,font:R,color:wc});y-=4}if(ct){y-=fs+2;page.drawText(cvClean(ct),{x:M,y,size:fs-.5,font:R,color:wc})}y=H-bh-8}else if(nm.trim()){y-=26;page.drawText(nm,{x:ctr?M+(maxW-B.widthOfTextAtSize(nm,24))/2:M,y,size:24,font:B,color:serif?ink:col});y-=6}}
+ if(!ban&&cv.title.trim())text(cv.title,R,fs+2,gray,ctr?'c':'l');
+ const contact=[cv.email,cv.phone,cv.loc,cv.links].map(s=>s.trim()).filter(Boolean).join('  |  ');
+ if(!ban&&contact)text(contact,R,fs-.5,ink,ctr?'c':'l');
+ if(cv.summary.trim()){head('Summary');text(cv.summary,R,fs,ink)}
+ if(cv.skills.trim()){head('Skills');text(cv.skills.split(',').map(s=>s.trim()).filter(Boolean).join(', '),R,fs,ink)}
+ const ent=(k,t)=>{const a=cv[k].filter(e=>e.role||e.org||e.dates||e.pts);if(!a.length)return;head(t);a.forEach(e=>{rowLR(e.role,e.dates,fs+.5);if(e.org.trim())text(e.org,I,fs,gray);bullets(e.pts);y-=fs*.4})};
+ ent('exp','Experience');ent('edu','Education');
+ return doc.save()}
+async function cvRender(){
+ const my=++cvTok,box=$('#cvPrev');
+ if(!window.PDFLib||!window.pdfjsLib){box.textContent='Libraries did not load. Connect to the internet once and reload.';return}
+ try{
+  const bytes=await cvPdf(),b=new Blob([bytes],{type:PDF}),d=await pdfjs(new File([b],'cv.pdf',{type:PDF})),cs=[];
+  for(let n=1;n<=d.numPages;n++){const c=await renderPage(d,n,1.4);c.className='pv-page';cs.push(c)}
+  if(my===cvTok)box.replaceChildren(...cs)
+ }catch(e){if(my===cvTok)box.textContent=e.message||'Could not build the preview.'}}
+async function invert(){
+ const f=items[0].f,d=await pdfjs(f),out=await PDFLib.PDFDocument.create(),sc=+opt('isc'),q=opt('iq')/100,full=opt('imode')==='full';
+ for(let n=1;n<=d.numPages;n++){status('Inverting page '+n+' of '+d.numPages+'…');
+  const p=await d.getPage(n),v=p.getViewport({scale:1}),c=await renderPage(d,n,sc),c2=E('canvas');c2.width=c.width;c2.height=c.height;const x=c2.getContext('2d');
+  if(!full&&('filter' in x)){x.filter='invert(1) hue-rotate(180deg)';x.drawImage(c,0,0)}
+  else{x.drawImage(c,0,0);const img=x.getImageData(0,0,c2.width,c2.height),a=img.data;for(let i=0;i<a.length;i+=4){a[i]=255-a[i];a[i+1]=255-a[i+1];a[i+2]=255-a[i+2]}x.putImageData(img,0,0)}
+  const im=await out.embedJpg(await(await blob(c2,'image/jpeg',q)).arrayBuffer());
+  out.addPage([v.width,v.height]).drawImage(im,{x:0,y:0,width:v.width,height:v.height});c.width=c.height=0;c2.width=c2.height=0}
+ const b=await out.save();done(new Blob([b],{type:PDF}),base(f)+'-inverted.pdf',d.numPages+' pages · '+fmt(b.length))}
 async function stamp(){
  const f=items[0].f,doc=await lib(f),font=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold),t=opt("txt").trim(),fs=+opt("fs"),op=opt("op")/100,num=opt("num");
  if(!t&&!num)throw Error("Enter watermark text or turn on page numbers.");

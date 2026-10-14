@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
-<title>EditifyPDF — Private, Local PDF Tools</title>
+<meta name="theme-color" content="#fafafa"/><link rel="manifest" href="manifest.webmanifest"/><link rel="icon" href="icon.svg" type="image/svg+xml"/><link rel="apple-touch-icon" href="icon-180.png"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="mobile-web-app-capable" content="yes"/><title>EditifyPDF — Private, Local PDF Tools</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -96,6 +96,8 @@ header{height:72px;display:flex;align-items:center;justify-content:space-between
 .size-pill{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:12px;font-weight:600;font-family:"JetBrains Mono",monospace;color:var(--text-main);cursor:pointer;transition:all .15s ease}
 .size-pill:hover{background:var(--surface-hover);border-color:var(--text-muted)}
 .size-pill.active{background:var(--accent);color:var(--accent-contrast);border-color:var(--accent)}
+.out-opts label[hidden]{display:none}
+.dummy-note{padding:14px;font-size:13px;color:var(--text-muted);line-height:1.6}.dummy-note b{color:var(--text-main)}
 .dummy-custom-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-top:4px}
 .dummy-custom-row input,.dummy-custom-row select{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;font-size:13px;color:var(--text-main)}
 .inline-pv-card{display:flex;flex-direction:column;align-items:center;gap:10px}
@@ -179,23 +181,81 @@ footer{border-top:1px solid var(--border);padding:40px 0 32px;color:var(--text-m
 .mobile-dock-btn svg{width:20px!important;height:20px!important;stroke:currentColor;stroke-width:2;fill:none}.mobile-dock-btn:hover,.mobile-dock-btn.active{color:var(--text-main)}}
 @media(max-width:860px){.hero{grid-template-columns:1fr;gap:32px;padding:36px 0 24px}.app-container{grid-template-columns:1fr}.tool-rail{position:static;max-height:none;display:grid;grid-template-columns:1fr 1fr}.rail-group-title{grid-column:1/-1}.tool-grid-layout{grid-template-columns:1fr}.feature-cards-grid{grid-template-columns:1fr}.metrics-strip{grid-template-columns:1fr 1fr}.nav-links{display:none}.footer-top{grid-template-columns:1fr}}
 [hidden]{display:none!important}
-</style></head><body>
+
+/* ===== Mobile optimisations ===== */
+button,a,select,input,label{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media(max-width:860px){
+ html{scroll-padding-top:calc(124px + env(safe-area-inset-top,0px))}
+ .container{padding:0 14px}
+ header{height:58px}
+ .brand{font-size:17px}.brand-icon{width:30px;height:30px}
+ .badge-tag{padding:9px}.badge-tag>span:not(.status-dot){display:none}
+ .icon-btn{width:40px;height:40px}
+ .hero{padding:22px 0 6px;gap:0}.hero-graphic{display:none}
+ .hero h1{font-size:30px;margin-bottom:12px}.hero-p{font-size:14.5px;margin-bottom:18px}
+ .hero-pill{margin-bottom:14px}
+ .hero-btns{flex-wrap:nowrap}.hero-btns>a{flex:1;justify-content:center;text-align:center;padding:12px 10px}
+ .workspace-section{padding:14px 0 48px}.section-head{margin-bottom:12px}.section-head h2{font-size:20px}.section-head p{display:none}
+ .app-container{gap:12px}
+ .tool-rail{display:flex;flex-direction:row;overflow-x:auto;gap:6px;padding:8px;border-radius:var(--radius-md);position:sticky;top:calc(58px + env(safe-area-inset-top,0px));z-index:30;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;grid-template-columns:none}
+ .tool-rail::-webkit-scrollbar{display:none}
+ .rail-group-title{display:none}
+ .tool-tab{width:auto;flex:0 0 auto;white-space:nowrap;border:1px solid var(--border);border-radius:99px;padding:8px 14px;min-height:40px;scroll-snap-align:center;background:var(--surface)}
+ .tool-tab.active{background:var(--accent);color:var(--accent-contrast);border-color:var(--accent)}
+ .workspace-content{padding:14px;min-height:0;border-radius:var(--radius-md)}
+ .tool-header-block{padding-bottom:12px;margin-bottom:14px}.tool-info h3{font-size:18px}.tool-info p{font-size:13px}
+ .tool-grid-layout{gap:16px}
+ .dropzone-box{padding:30px 14px}
+ .opts-form input,.opts-form select,.cv-form input,.cv-form textarea,.cv-bar select,.out-opts input[type=text],.dummy-custom-row input,.dummy-custom-row select{font-size:16px;min-height:44px}
+ .btn-primary,.btn-secondary,.run-action-btn{min-height:46px}
+ .btn-ghost-sm{min-height:38px;padding:8px 12px}
+ .btn-row{position:sticky;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:5;background:var(--surface-raised);padding:10px 0 2px;margin-top:14px;border-top:1px solid var(--border)}
+ .dummy-studio{padding:14px}
+ .size-pills{display:flex;flex-wrap:wrap;gap:6px}
+ .dummy-custom-row{grid-template-columns:1fr auto}.dummy-custom-row .btn-primary{grid-column:1/-1}
+ .cards-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+ .file-actions-bar{gap:6px}
+ .cv-bar select{flex:1;min-width:0}.cv-bar .btn-primary{width:100%}.cv-inv{min-height:40px}
+ .cv-prev{max-height:70vh}
+ .pv-modal{padding:calc(8px + env(safe-area-inset-top,0px)) 8px calc(8px + env(safe-area-inset-bottom,0px))}
+ .pv-box{width:100%;border-radius:var(--radius-md)}.pv-head{flex-wrap:wrap}.pv-body{padding:10px}
+ .features-section{padding:32px 0 36px}.features-title{font-size:22px}.metrics-strip{padding:18px;gap:12px;margin-top:32px}.metric-item b{font-size:22px}
+ .footer-bottom{flex-direction:column;gap:8px;align-items:flex-start}
+}
+@media(max-width:380px){.hero h1{font-size:27px}.tool-tab{padding:8px 12px;font-size:13px}}
+
+/* ===== Accessibility, PWA, history ===== */
+[hidden]{display:none!important}
+.skip-link{position:fixed;left:12px;top:-64px;z-index:100;background:var(--accent);color:var(--accent-contrast);padding:10px 14px;border-radius:8px;font-weight:600;transition:top .15s}
+.skip-link:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+.dropzone-box:focus-within{border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(37,99,235,.25)}
+.tool-tab:focus-visible,.btn-ghost-sm:focus-visible,.btn-primary:focus-visible,.run-action-btn:focus-visible,.icon-btn:focus-visible,.download-btn:focus-visible{outline:2px solid var(--primary-blue);outline-offset:2px}
+.offline-banner{position:fixed;left:50%;transform:translateX(-50%);top:calc(8px + env(safe-area-inset-top,0px));z-index:90;background:#b45309;color:#fff;padding:8px 14px;border-radius:99px;font-size:12.5px;font-weight:600;box-shadow:var(--shadow-md);max-width:92vw;text-align:center}
+#installBtn{white-space:nowrap}
+.res-actions{flex-wrap:wrap}
+.hist{margin-top:16px;border-top:1px solid var(--border);padding-top:14px}
+.hist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-subtle)}
+.hist-row{display:grid;gap:8px;padding:10px 0;border-top:1px solid var(--border)}.hist-row:first-child{border-top:0}
+.hist-meta b{display:block;font-size:13px;word-break:break-all}.hist-meta span{font-size:12px;color:var(--text-muted)}.hist-btns{display:flex;gap:6px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media(max-width:860px){#installBtn{padding:8px 10px;font-size:12px}.hist-btns .btn-ghost-sm{flex:1}}
+</style></head><body><a class="skip-link" href="#workspace">Skip to tools</a><div class="offline-banner" id="offBanner" role="status" hidden>You are offline. Tools that already loaded keep working.</div>
 <div class="container">
 <header><a class="brand" href="#"><div class="brand-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div><span>Editify<span style="font-weight:400;opacity:.65">PDF</span></span></a>
 <nav class="nav-links"><a href="#workspace">Tools</a><a href="#layout" data-nav-tool="layout">Page Layout</a><a href="#dummy" data-nav-tool="dummy">Dummy PDF</a><a href="#features">Privacy</a><a href="https://github.com/Prakhr-Joshi/EditfyPDF" rel="noreferrer" target="_blank">Open Source</a></nav>
-<div class="header-actions"><div class="badge-tag"><span class="status-dot"></span><span>Local engine active</span></div><button aria-label="Toggle theme" class="icon-btn" id="themeToggle" title="Toggle dark/light theme"></button></div></header>
+<div class="header-actions"><div class="badge-tag"><span class="status-dot"></span><span>Local engine active</span></div><button class="btn-ghost-sm" id="installBtn" type="button" hidden>Install app</button><button aria-label="Toggle theme" class="icon-btn" id="themeToggle" title="Toggle dark/light theme"></button></div></header>
 
 <section class="hero"><div><div class="hero-pill"><span class="dot"></span><span>Client-side WebAssembly &amp; PDF-lib</span></div>
 <h1>Edit documents <span class="dim">without uploading them</span></h1>
-<p class="hero-p">Merge, rearrange N-up page layouts, generate dummy test PDFs of any file size, sign, compress, and watermark files entirely in your browser.</p>
-<div class="hero-btns"><a class="btn-primary" href="#workspace"><span>Open editor</span><svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" width="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a class="btn-secondary" href="#dummy" data-nav-tool="dummy">Generate Dummy PDF</a></div></div>
+<p class="hero-p">Merge, rearrange N-up page layouts, create dummy test files of any size, sign, compress, and watermark files entirely in your browser.</p>
+<div class="hero-btns"><a class="btn-primary" href="#workspace"><span>Open editor</span><svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" width="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a class="btn-secondary" href="#dummy" data-nav-tool="dummy">Create Dummy PDF</a></div></div>
 <div class="hero-graphic"><div class="graphic-header"><div class="file-meta-tag"><svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="15"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span>Q3_Financial_Audit.pdf</span></div>
 <div class="badge-privacy"><svg fill="none" height="11" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="11"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>100% In-memory</span></div></div>
 <div class="graphic-preview-grid"><div class="preview-thumb active"><div class="line short"></div><div class="line med"></div><div class="line accent"></div><div class="line med"></div></div><div class="preview-thumb"><div class="line med"></div><div class="line short"></div><div class="line med"></div></div><div class="preview-thumb"><div class="line short"></div><div class="line accent"></div><div class="line med"></div></div></div>
-<div class="graphic-footer"><span>Zero server roundtrips</span><span class="mono">17 Local Utilities • Ready</span></div></div></section>
+<div class="graphic-footer"><span>Zero server roundtrips</span><span class="mono">20 Local Utilities • Ready</span></div></div></section>
 
 <section class="workspace-section" id="workspace"><div class="section-head"><h2>Document Workspace</h2><p>Select a utility from the sidebar, drop your file (or generate a dummy PDF), and preview instantly.</p></div>
-<div class="app-container"><aside class="tool-rail" id="rail"></aside>
+<div class="app-container"><aside class="tool-rail" id="rail" role="tablist" aria-label="PDF tools" aria-orientation="vertical"></aside>
 <main class="workspace-content"><div class="tool-header-block"><div class="tool-info"><h3 id="tt">Tool</h3><p id="td">Description</p></div></div>
 <div class="tool-grid-layout"><div>
 
@@ -238,17 +298,17 @@ footer{border-top:1px solid var(--border);padding:40px 0 32px;color:var(--text-m
  </div>
 </div>
 
-<!-- Dummy PDF Generator Studio Card (like dummygenerator.com/file/pdf) -->
+<!-- Dummy PDF card: creates an intentionally unopenable .pdf placeholder of an exact size -->
 <div class="dummy-studio" hidden id="dummyPreviewCard">
  <div class="dummy-quick-bar">
   <div class="dummy-quick-bar-lbl">
-   <span>Quick Target File Size (for upload testing)</span>
-   <span class="mono" id="dummyTargetBadge">Standard (~3 KB)</span>
+   <span>File size (for upload &amp; limit testing)</span>
+   <span class="mono" id="dummyTargetBadge">256 KB</span>
   </div>
   <div class="size-pills" id="dummySizePills">
-   <button type="button" class="size-pill active" data-kb="0">Standard</button>
    <button type="button" class="size-pill" data-kb="50">50 KB</button>
    <button type="button" class="size-pill" data-kb="100">100 KB</button>
+   <button type="button" class="size-pill active" data-kb="256">256 KB</button>
    <button type="button" class="size-pill" data-kb="500">500 KB</button>
    <button type="button" class="size-pill" data-kb="1024">1 MB</button>
    <button type="button" class="size-pill" data-kb="2048">2 MB</button>
@@ -256,17 +316,17 @@ footer{border-top:1px solid var(--border);padding:40px 0 32px;color:var(--text-m
    <button type="button" class="size-pill" data-kb="10240">10 MB</button>
   </div>
   <div class="dummy-custom-row">
-   <input type="number" id="dummyCustomVal" min="0" max="51200" step="10" placeholder="Or enter exact custom file size (0 = default)"/>
+   <input type="number" id="dummyCustomVal" min="1" max="51200" step="1" inputmode="numeric" placeholder="Custom size"/>
    <select id="dummyCustomUnit" aria-label="File size unit">
     <option value="1">KB</option>
     <option value="1024">MB</option>
    </select>
-   <button type="button" class="btn-primary" id="dummyQuickDl" style="padding:7px 14px;font-size:12.5px">Instant Download</button>
+   <button type="button" class="btn-primary" id="dummyQuickDl">Download</button>
   </div>
  </div>
  <div class="inline-pv-card">
-  <div class="inline-pv-head"><span>Live Dummy PDF Preview (Page 1)</span><span class="mono" id="dummyMetaLabel">A4 · 1 Page</span></div>
-  <canvas id="dummyLiveCanvas" width="420" height="594"></canvas>
+  <div class="inline-pv-head"><span>Dummy file</span><span class="mono" id="dummyMetaLabel">dummy.pdf &middot; 256 KB</span></div>
+  <div class="dummy-note"><b>Not a real PDF.</b> The file has a .pdf name and a PDF header, but no valid structure, so every PDF reader will refuse to open it. Use it to test upload limits, size validation and error handling. Maximum size: 50 MB.</div>
  </div>
 </div>
 
@@ -291,7 +351,7 @@ footer{border-top:1px solid var(--border);padding:40px 0 32px;color:var(--text-m
  </div>
 </div>
 <div class="out-opts"><label>Filename after conversion<input type="text" id="fname" placeholder="Same as original"></label><label class="chk"><input type="checkbox" id="autoPv" checked> Open preview panel automatically</label></div><div class="btn-row"><button class="run-action-btn" disabled id="run" type="button">Execute Tool</button><button class="btn-ghost-sm" id="rs" type="button">Reset</button></div><div id="st" role="status"></div>
-<div class="result-box" id="res"><b id="rn">Document ready</b><span id="ri">File details</span><div class="res-actions"><button class="btn-ghost-sm" id="rp" type="button">Preview</button><a class="download-btn" href="#" id="rl">Download Result</a></div></div></aside></div>
+<div class="result-box" id="res" role="region" aria-live="polite" aria-label="Result"><b id="rn">Document ready</b><span id="ri">File details</span><div class="res-actions"><button class="btn-ghost-sm" id="rp" type="button">Preview</button><button class="btn-ghost-sm" id="rsh" type="button" hidden>Share</button><a class="download-btn" href="#" id="rl">Download Result</a></div></div><div class="hist" id="histBox" hidden><div class="hist-head"><b>Recent results</b><button class="btn-ghost-sm" id="histClear" type="button">Clear</button></div><div id="histList"></div></div></aside></div>
 
 <div class="cv-app" hidden id="cvApp"><div class="cv-form" id="cvForm"></div><div class="cv-side"><div class="cv-bar"><select id="cvTpl" aria-label="Template"><option value="classic">Classic</option><option value="centered">Centered</option><option value="banner">Banner</option><option value="serif">Serif</option></select><select id="cvAcc" aria-label="Accent color"><option value="#2563eb">Blue</option><option value="#059669">Green</option><option value="#7c3aed">Purple</option><option value="#111827">Black</option></select><select id="cvSize" aria-label="Text size"><option value="9">Compact</option><option value="10">Normal</option><option value="11">Large</option></select><label class="cv-inv"><input type="checkbox" id="cvDark"> Dark / invert</label><button class="btn-ghost-sm" id="cvReset" type="button">Reset CV</button><button class="btn-primary" id="cvDl" type="button">Download PDF</button></div><div class="cv-prev" id="cvPrev"></div></div></div></main></div></section>
 
@@ -301,10 +361,10 @@ footer{border-top:1px solid var(--border);padding:40px 0 32px;color:var(--text-m
 <div class="feature-cards-grid"><div class="f-card"><div class="f-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Never touches a server</h4><p>Contracts, health records, tax returns, and passports stay exclusively inside your browser's private memory pool.</p></div>
 <div class="f-card"><div class="f-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h4>Instant local execution</h4><p>No waiting on remote worker queues or slow upload pipes. High-resolution PDFs are parsed and compiled instantly.</p></div>
 <div class="f-card"><div class="f-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg></div><h4>Zero accounts or trackers</h4><p>No account creation, cookies, paywalls, or watermarks placed on your documents. Free and open client tooling.</p></div></div>
-<div class="metrics-strip" id="privacy-metrics"><div class="metric-item"><b>0 KB</b><span>Sent to external clouds</span></div><div class="metric-item"><b>17</b><span>Dedicated PDF utilities</span></div><div class="metric-item"><b>100%</b><span>In-browser processing</span></div><div class="metric-item"><b>MIT</b><span>Open-source foundations</span></div></div></section>
+<div class="metrics-strip" id="privacy-metrics"><div class="metric-item"><b>0 KB</b><span>Sent to external clouds</span></div><div class="metric-item"><b>20</b><span>Dedicated PDF utilities</span></div><div class="metric-item"><b>100%</b><span>In-browser processing</span></div><div class="metric-item"><b>MIT</b><span>Open-source foundations</span></div></div></section>
 
 <footer><div class="footer-top"><div><b>EditifyPDF</b><p style="margin-top:6px;max-width:320px;line-height:1.5">Modern, distraction-free document utilities running completely on your device.</p><a href="https://github.com/Prakhr-Joshi/EditfyPDF" rel="noreferrer" target="_blank" style="margin-top:10px">GitHub: Prakhr-Joshi</a></div>
-<div><h5>Toolkit</h5><a href="#layout" data-nav-tool="layout">PDF page layout (N-up)</a><a href="#dummy" data-nav-tool="dummy">Dummy PDF generator</a><a href="#merge" data-nav-tool="merge">Merge documents</a><a href="#organize" data-nav-tool="organize">Organize pages</a><a href="#compress" data-nav-tool="compress">Compress PDF</a></div>
+<div><h5>Toolkit</h5><a href="#layout" data-nav-tool="layout">PDF page layout (N-up)</a><a href="#dummy" data-nav-tool="dummy">Dummy PDF</a><a href="#merge" data-nav-tool="merge">Merge documents</a><a href="#organize" data-nav-tool="organize">Organize pages</a><a href="#compress" data-nav-tool="compress">Compress PDF</a></div>
 <div><h5>Libraries</h5><a href="https://pdf-lib.js.org/" rel="noreferrer" target="_blank">pdf-lib</a><a href="https://mozilla.github.io/pdf.js/" rel="noreferrer" target="_blank">PDF.js</a><a href="https://stuk.github.io/jszip/" rel="noreferrer" target="_blank">JSZip</a></div></div>
 <div class="footer-bottom"><span>Files are processed locally and never stored.</span><span class="mono">EditifyPDF v2.5 • Complete Edition</span></div></footer></div>
 
@@ -314,10 +374,13 @@ footer{border-top:1px solid var(--border);padding:40px 0 32px;color:var(--text-m
 <a class="mobile-dock-btn" href="#organize" data-nav-tool="organize"><svg viewBox="0 0 24 24"><rect height="7" width="7" x="3" y="3"/><rect height="7" width="7" x="14" y="3"/><rect height="7" width="7" x="14" y="14"/><rect height="7" width="7" x="3" y="14"/></svg><span>Organize</span></a></nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>window.PDFLib||document.write('<script src="libs/pdf-lib.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>window.pdfjsLib||(window.__localPdfjs=1,document.write('<script src="libs/pdf.min.js"><\/script>'))</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>window.JSZip||document.write('<script src="libs/jszip.min.js"><\/script>')</script>
 <script>
-const WORKER="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const WORKER=window.__localPdfjs?"libs/pdf.worker.min.js":"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 const PDF="application/pdf",PDFA=".pdf,application/pdf";
 const PAGE_SIZES={
  a4:[595.28,841.89],
@@ -328,19 +391,35 @@ const PAGE_SIZES={
 };
 
 const TOOLS={
-dummy:{
- n:"Dummy PDF generator",
- d:"Generate customizable sample & test PDFs with Lorem Ipsum, tables, grids, or exact KB/MB file-size padding—no upload required.",
- ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>`,
- acc:"",noFile:1,btn:"Generate Dummy PDF",run:dummyPdf,
+protect:{
+ n:"Protect with password",
+ d:"Encrypt a PDF with AES-128 so it asks for a password to open. You can also block copying and printing. Everything happens in your browser.",
+ ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+ acc:PDFA,btn:"Protect PDF",run:protectPdf,
  opts:[
-  {id:"dtitle",t:"text",l:"Document heading / title",v:"Sample Dummy PDF Document"},
-  {id:"dcustom",t:"text",l:"Custom body note (optional)",v:""},
-  {id:"dtype",t:"sel",l:"Content template",o:[["lorem","Lorem Ipsum paragraphs"],["report","Structured business report & table"],["invoice","Sample Tax Invoice"],["grid","Engineering grid paper"],["ruled","Ruled notebook lines"],["calib","Calibration & alignment test"],["blank","Blank pages"]]},
-  {id:"dpages",t:"range",l:"Number of pages",min:1,max:100,v:3,u:" pgs"},
-  {id:"dsize",t:"sel",l:"Paper format",o:[["a4","A4 (210 × 297 mm)"],["letter","US Letter (8.5 × 11 in)"],["a3","A3 (297 × 420 mm)"],["a5","A5 (148 × 210 mm)"],["legal","Legal (8.5 × 14 in)"]]},
-  {id:"dori",t:"sel",l:"Orientation",o:[["portrait","Portrait"],["landscape","Landscape"]]},
-  {id:"dnum",t:"chk",l:"Include page numbers & footer metadata",v:1}
+  {id:"upw",t:"text",pw:1,l:"Password to open the file",v:""},
+  {id:"opw",t:"text",pw:1,l:"Owner password (optional)",v:""},
+  {id:"nocopy",t:"chk",l:"Do not allow copying text"},
+  {id:"noprint",t:"chk",l:"Do not allow printing"}
+ ]
+},
+ocr:{
+ n:"OCR scanned PDF",
+ d:"Recognise text in scanned PDFs or photos of pages and create a searchable PDF or a text file. The OCR engine is downloaded once from a CDN, then runs in your browser.",
+ ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>`,
+ acc:PDFA,btn:"Run OCR",run:ocrPdf,
+ opts:[
+  {id:"olang",t:"sel",l:"Document language",o:[["eng","English"],["hin","Hindi"],["spa","Spanish"],["fra","French"],["deu","German"]]},
+  {id:"oout",t:"sel",l:"Output",o:[["pdf","Searchable PDF (Latin scripts)"],["txt","Plain text file"]]}
+ ]
+},
+dummy:{
+ n:"Dummy PDF",
+ d:"Create a placeholder .pdf file of an exact size for upload and size-limit testing. The file is intentionally invalid, so it cannot be opened or read.",
+ ic:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>`,
+ acc:"",noFile:1,btn:"Create Dummy PDF",run:dummyPdf,
+ opts:[
+  {id:"dname",t:"text",l:"File name",v:"dummy"}
  ]
 },
 cv:{
@@ -485,7 +564,7 @@ invert:{
 
 const $=s=>document.querySelector(s),E=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 let T,items=[],busy=0,uid=0,srcFile=null,dragI=null,wready=0,cur=null,curUrl=null,curK;
-let dummyTargetKb=0;
+let dummyTargetKb=256;
 
 const winAnsi=s=>Array.from(String(s||"").split("\r").join("").split("\t").join("    ")
  .replace(/[\u2018\u2019\u2032]/g,"'")
@@ -499,13 +578,13 @@ const winAnsi=s=>Array.from(String(s||"").split("\r").join("").split("\t").join(
 const GROUPS=[
  ["Create & Test",["dummy","cv"]],
  ["Layout & Structure",["layout","merge","organize","split","crop"]],
- ["Conversion",["img2pdf","pdf2img","pdf2text","txt2pdf"]],
- ["Sign, Stamp & Refine",["sign","stamp","bates","compress","flatten","meta","invert"]]
+ ["Conversion",["img2pdf","pdf2img","pdf2text","txt2pdf","ocr"]],
+ ["Sign, Stamp & Refine",["sign","stamp","bates","compress","flatten","protect","meta","invert"]]
 ];
 for(const[g,ks]of GROUPS){
  $("#rail").append(E("div","rail-group-title",g));
  for(const k of ks){
-  const b=E("button","tool-tab");b.type="button";b.dataset.k=k;
+  const b=E("button","tool-tab");b.type="button";b.dataset.k=k;b.setAttribute("role","tab");
   b.innerHTML=`<span class="tab-icon">${TOOLS[k].ic}</span><span>${TOOLS[k].n}</span>`;
   b.onclick=()=>{location.hash=k};
   $("#rail").append(b);
@@ -639,17 +718,17 @@ async function drawLayoutLivePreview(){
 }
 $("#layoutQuickPreset")?.addEventListener("change",()=>syncLayoutUi(true));
 
-/* Dummy PDF Interactive Size Pills & Live Preview */
+/* Dummy PDF: size pills + file card (the generated file is intentionally unopenable) */
+const dummyName=()=>((opt("dname")||"").trim().replace(/[\\\/:*?"<>|]/g,"").replace(/\.pdf$/i,""))||"dummy";
+const dummyLabel=kb=>kb>=1024?`${(kb/1024).toFixed(kb%1024?2:0)} MB`:`${kb} KB`;
 function updateDummyTargetKb(kb,fromCustom=false){
- dummyTargetKb=Math.max(0,Math.min(51200,Number(kb)||0));
+ dummyTargetKb=Math.max(1,Math.min(51200,Math.round(Number(kb))||256));
  document.querySelectorAll("#dummySizePills .size-pill").forEach(b=>{
   b.classList.toggle("active",!fromCustom&&Number(b.dataset.kb)===dummyTargetKb);
  });
  if(!fromCustom&&$("#dummyCustomVal"))$("#dummyCustomVal").value="";
  const badge=$("#dummyTargetBadge");
- if(badge){
-  badge.textContent=dummyTargetKb>0?(dummyTargetKb>=1024?`Target: ${(dummyTargetKb/1024).toFixed(dummyTargetKb%1024?1:0)} MB`:`Target: ${dummyTargetKb} KB`):"Standard (~3 KB)";
- }
+ if(badge)badge.textContent=dummyLabel(dummyTargetKb);
  scheduleDummyPreview();
 }
 document.querySelectorAll("#dummySizePills .size-pill").forEach(btn=>{
@@ -657,34 +736,16 @@ document.querySelectorAll("#dummySizePills .size-pill").forEach(btn=>{
 });
 const syncCustomDummySize=()=>{
  const v=parseFloat($("#dummyCustomVal")?.value||"0"),mult=Number($("#dummyCustomUnit")?.value||1);
- if(!isNaN(v)&&v>0)updateDummyTargetKb(Math.round(v*mult),true);
- else updateDummyTargetKb(0,false);
+ if(!isNaN(v)&&v>0)updateDummyTargetKb(v*mult,true);
+ else updateDummyTargetKb(256,false);
 };
 $("#dummyCustomVal")?.addEventListener("input",syncCustomDummySize);
 $("#dummyCustomUnit")?.addEventListener("change",syncCustomDummySize);
 $("#dummyQuickDl")?.addEventListener("click",()=>$("#run").click());
-
-let dummyPvTimer=0;
 function scheduleDummyPreview(){
  if(curK!=="dummy")return;
- clearTimeout(dummyPvTimer);
- dummyPvTimer=setTimeout(renderDummyLivePreview,160);
-}
-async function renderDummyLivePreview(){
- if(curK!=="dummy")return;
- try{
-  const bytes=await buildDummyPdfBytes(true);
-  const d=await pdfjs(new File([bytes],"dummy.pdf",{type:PDF}));
-  const c=await renderPage(d,1,1.15);
-  const dest=$("#dummyLiveCanvas");
-  if(dest){
-   dest.width=c.width;dest.height=c.height;
-   dest.getContext("2d").drawImage(c,0,0);
-  }
-  const szText=dummyTargetKb>0?`~${dummyTargetKb>=1024?(dummyTargetKb/1024).toFixed(dummyTargetKb%1024?1:0)+" MB":dummyTargetKb+" KB"}`:fmt(bytes.length);
-  const lbl=$("#dummyMetaLabel");
-  if(lbl)lbl.textContent=`${opt("dsize").toUpperCase()} · ${opt("dpages")} pg${+opt("dpages")>1?"s":""} · ${szText}`;
- }catch(e){}
+ const l=$("#dummyMetaLabel");
+ if(l)l.textContent=`${dummyName()}.pdf \u00b7 ${dummyLabel(dummyTargetKb)}`;
 }
 
 function openTool(k){
@@ -692,12 +753,15 @@ function openTool(k){
  $(".tool-grid-layout").hidden=!!T.cv;$("#cvApp").hidden=!T.cv;
  $("#layoutBanner").hidden=k!=="layout";
  $("#dummyPreviewCard").hidden=k!=="dummy";
+ {const fl=$("#fname")&&$("#fname").closest("label");if(fl){fl.hidden=k==="dummy";if(k==="dummy")$("#fname").value=""}}
  $("#drop").hidden=!!T.noFile;
  $("#sampleBar").hidden=!!(T.noFile||T.acc==="image/*"||T.txt);
  $("#sigBox").hidden=!T.sig;
  if(T.cv)setTimeout(cvInit,0);
  if(T.sig)setTimeout(initSigPad,0);
- document.querySelectorAll("#rail .tool-tab").forEach(b=>b.classList.toggle("active",b.dataset.k==k));
+ document.querySelectorAll("#rail .tool-tab").forEach(b=>{b.classList.toggle("active",b.dataset.k==k);b.setAttribute("aria-selected",String(b.dataset.k==k));b.tabIndex=b.dataset.k==k?0:-1});
+ histRender();
+ {const a=$("#rail .tool-tab.active"),r=$("#rail");if(a&&r.scrollWidth>r.clientWidth)r.scrollTo({left:a.offsetLeft-r.clientWidth/2+a.offsetWidth/2,behavior:"smooth"})}
  document.querySelectorAll(".mobile-dock-btn[data-nav-tool]").forEach(b=>b.classList.toggle("active",b.dataset.navTool==k));
  document.title=`${T.n} — EditifyPDF`;$("#tt").textContent=T.n;$("#td").textContent=T.d;$("#run").textContent=T.btn;
  const f=$("#file");f.value="";f.accept=T.acc;f.multiple=!!T.multi;
@@ -706,7 +770,7 @@ function openTool(k){
   if(d.t=="sel"){el=E("select");d.o.forEach(([v,x,sel])=>{const p=E("option","",x);p.value=v;if(sel)p.selected=true;el.append(p)})}
   else if(d.t=="range"){el=E("input");el.type="range";el.min=d.min;el.max=d.max;el.value=d.v}
   else if(d.t=="chk"){el=E("input");el.type="checkbox";el.checked=!!d.v}
-  else{el=E("input");el.type="text";el.value=d.v||""}
+  else{el=E("input");el.type=d.pw?"password":"text";el.value=d.v||"";if(d.pw){el.autocomplete="new-password";el.spellcheck=false}}
   el.id="o_"+d.id;
   if(d.t=="chk")l.append(el,d.l);else{l.append(d.l);if(d.t=="range"){const out=E("span","range-output",d.v+d.u);el.oninput=()=>{out.textContent=el.value+d.u;if(curK==="layout")syncLayoutUi();if(curK==="dummy")scheduleDummyPreview()};l.append(out)}l.append(el)}
   el.addEventListener("change",()=>{if(curK==="layout")syncLayoutUi();if(curK==="dummy")scheduleDummyPreview()});
@@ -855,8 +919,8 @@ function done(blob,name,info){
  cur={blob,name};
  curUrl=URL.createObjectURL(blob);
  const rl=$("#rl");rl.href=curUrl;rl.download=name;
- $("#rn").textContent=name;$("#ri").textContent=info||fmt(blob.size);$("#res").classList.add("show");
- if($('#autoPv')&&$('#autoPv').checked)openPv();
+ $("#rn").textContent=name;$("#ri").textContent=info||fmt(blob.size);$("#res").classList.add("show");histAdd(blob,name,info);
+ if($('#autoPv')&&$('#autoPv').checked&&!blob.isDummy)openPv();
 }
 
 /* Preview Slide-over Modal */
@@ -867,6 +931,7 @@ async function openPv(){
  if(!cur)return;const my=++pvTok,b=cur.blob,name=cur.name;
  $('#pvt').textContent=name;pvb.innerHTML='';pv.hidden=false;
  const note=E('div','pv-note','Loading preview…');pvb.append(note);
+ if(b.isDummy){note.textContent='This is a dummy file. It is intentionally not a valid PDF, so there is nothing to preview.';return}
  try{
   if(b.type===PDF){
    const d=await pdfjs(new File([b],name,{type:PDF}));
@@ -934,150 +999,20 @@ $("#run").onclick=async()=>{
  try{await T.run();status("Done.")}catch(e){console.error(e);status(e.message||"Something went wrong.",1)}
  busy=0;render()};
 
-/* 1. DUMMY PDF GENERATOR (like dummygenerator.com/file/pdf) */
-const LOREM_PARAS=[
- "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
- "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
- "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida.",
- "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
-];
-
-async function buildDummyPdfBytes(previewOnly=false){
- const doc=await PDFLib.PDFDocument.create();
- const font=await doc.embedFont(PDFLib.StandardFonts.Helvetica);
- const bold=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
- const mono=await doc.embedFont(PDFLib.StandardFonts.Courier);
- const title=winAnsi(opt("dtitle")||"Sample Dummy PDF Document");
- const customNote=winAnsi(opt("dcustom")||"").trim();
- const tpl=opt("dtype")||"lorem";
- const totalPages=previewOnly?1:Math.max(1,Math.min(100,+opt("dpages")||1));
- const sizeKey=opt("dsize")||"a4";
- const ori=opt("dori")||"portrait";
- const showNum=!!opt("dnum");
- let [W,H]=PAGE_SIZES[sizeKey]||PAGE_SIZES.a4;
- if(ori==="landscape")[W,H]=[H,W];
- const M=48,maxW=W-2*M;
-
- doc.setTitle(title);
- doc.setCreator("EditifyPDF Dummy Generator");
- doc.setProducer("EditifyPDF Local Engine");
-
- const wrapText=(txt,fnt,sz,w)=>{
-  const lines=[];
-  for(const p of winAnsi(txt).split("\n")){
-   let ln="";
-   for(const word of p.split(" ")){
-    const cand=ln?ln+" "+word:word;
-    if(fnt.widthOfTextAtSize(cand,sz)<=w)ln=cand;
-    else{if(ln)lines.push(ln);ln=word}
-   }
-   lines.push(ln);
-  }
-  return lines;
- };
-
- for(let pIdx=1;pIdx<=totalPages;pIdx++){
-  const page=doc.addPage([W,H]);
-  let y=H-M;
-
-  if(tpl!=="blank"){
-   page.drawRectangle({x:M,y:y-38,width:maxW,height:38,color:PDFLib.rgb(0.95,0.96,0.98),borderColor:PDFLib.rgb(0.84,0.86,0.9),borderWidth:1});
-   page.drawText(title.slice(0,65),{x:M+12,y:y-24,size:13,font:bold,color:PDFLib.rgb(0.08,0.09,0.12)});
-   const badge=`${sizeKey.toUpperCase()} · ${Math.round(W)}x${Math.round(H)} pt`;
-   page.drawText(badge,{x:W-M-mono.widthOfTextAtSize(badge,9)-12,y:y-23,size:9,font:mono,color:PDFLib.rgb(0.4,0.42,0.48)});
-   y-=56;
-   if(customNote){
-    for(const ln of wrapText(customNote,bold,11,maxW)){
-     if(y<M+40)break;
-     page.drawText(ln,{x:M,y,size:11,font:bold,color:PDFLib.rgb(0.15,0.38,0.92)});
-     y-=16;
-    }
-    y-=6;
-   }
-  }
-
-  if(tpl==="lorem"){
-   for(let b=0;b<6&&y>M+60;b++){
-    const heading=`Section ${pIdx}.${b+1} — Sample Text Block`;
-    page.drawText(heading,{x:M,y,size:11.5,font:bold,color:PDFLib.rgb(0.15,0.38,0.92)});
-    y-=16;
-    const para=LOREM_PARAS[(pIdx+b)%LOREM_PARAS.length];
-    for(const ln of wrapText(para,font,10.5,maxW)){
-     if(y<M+40)break;
-     page.drawText(ln,{x:M,y,size:10.5,font,color:PDFLib.rgb(0.18,0.19,0.22)});
-     y-=14.5;
-    }
-    y-=10;
-   }
-  }else if(tpl==="report"||tpl==="invoice"){
-   const isInv=tpl==="invoice";
-   page.drawText(isInv?`TAX INVOICE #INV-2026-0${pIdx}`:`Executive Summary & Metrics (Page ${pIdx})`,{x:M,y,size:12,font:bold,color:PDFLib.rgb(0.1,0.1,0.14)});
-   y-=18;
-   for(const ln of wrapText(LOREM_PARAS[0],font,10.5,maxW)){
-    page.drawText(ln,{x:M,y,size:10.5,font,color:PDFLib.rgb(0.2,0.2,0.24)});y-=14.5;
-   }
-   y-=14;
-   const cols=4,colW=maxW/cols,rowH=24;
-   const headers=isInv?["SKU Code","Description","Qty","Line Total"]:["Item ID","Category","Status","Amount (USD)"];
-   page.drawRectangle({x:M,y:y-rowH,width:maxW,height:rowH,color:PDFLib.rgb(0.12,0.14,0.18)});
-   headers.forEach((h,ci)=>page.drawText(h,{x:M+ci*colW+8,y:y-16,size:9.5,font:bold,color:PDFLib.rgb(1,1,1)}));
-   y-=rowH;
-   for(let r=1;r<=8&&y>M+60;r++){
-    page.drawRectangle({x:M,y:y-rowH,width:maxW,height:rowH,color:r%2?PDFLib.rgb(0.98,0.98,0.99):PDFLib.rgb(1,1,1),borderColor:PDFLib.rgb(0.86,0.88,0.91),borderWidth:0.6});
-    const rowData=isInv?[`SKU-${200+r}`,`Cloud Service Tier ${r}`,`${r}`,`$${(r*149).toFixed(2)}`]:[`INV-${1000+pIdx*10+r}`,`Module ${String.fromCharCode(64+r)}`,r%3===0?"Pending":"Verified",`$${(r*420.5).toFixed(2)}`];
-    rowData.forEach((cell,ci)=>page.drawText(cell,{x:M+ci*colW+8,y:y-16,size:9.5,font:ci===0?mono:font,color:PDFLib.rgb(0.2,0.22,0.26)}));
-    y-=rowH;
-   }
-  }else if(tpl==="grid"){
-   const step=18,topY=y,botY=M+36;
-   for(let gx=M;gx<=W-M;gx+=step){
-    page.drawLine({start:{x:gx,y:botY},end:{x:gx,y:topY},thickness:0.5,color:PDFLib.rgb(0.82,0.88,0.96)});
-   }
-   for(let gy=botY;gy<=topY;gy+=step){
-    page.drawLine({start:{x:M,y:gy},end:{x:W-M,y:gy},thickness:0.5,color:PDFLib.rgb(0.82,0.88,0.96)});
-   }
-  }else if(tpl==="ruled"){
-   const step=22,topY=y,botY=M+36;
-   page.drawLine({start:{x:M+28,y:botY},end:{x:M+28,y:topY},thickness:0.8,color:PDFLib.rgb(0.94,0.65,0.65)});
-   for(let gy=topY-10;gy>=botY;gy-=step){
-    page.drawLine({start:{x:M,y:gy},end:{x:W-M,y:gy},thickness:0.6,color:PDFLib.rgb(0.78,0.84,0.92)});
-   }
-  }else if(tpl==="calib"){
-   const cx=W/2,cy=H/2;
-   page.drawRectangle({x:M,y:M+36,width:maxW,height:y-(M+36),borderColor:PDFLib.rgb(0.1,0.1,0.1),borderWidth:1.5});
-   page.drawCircle({x:cx,y:cy,size:90,borderColor:PDFLib.rgb(0.15,0.39,0.92),borderWidth:1.5});
-   page.drawCircle({x:cx,y:cy,size:45,borderColor:PDFLib.rgb(0.88,0.18,0.18),borderWidth:1});
-   page.drawLine({start:{x:cx-120,y:cy},end:{x:cx+120,y:cy},thickness:1,color:PDFLib.rgb(0.2,0.2,0.2)});
-   page.drawLine({start:{x:cx,y:cy-120},end:{x:cx,y:cy+120},thickness:1,color:PDFLib.rgb(0.2,0.2,0.2)});
-   const sw=[0.1,0.25,0.5,0.75,0.9];
-   sw.forEach((v,i)=>page.drawRectangle({x:cx-100+i*42,y:cy-170,width:34,height:24,color:PDFLib.rgb(v,v,v),borderColor:PDFLib.rgb(0,0,0),borderWidth:0.5}));
-  }
-
-  if(showNum){
-   const foot=`Dummy PDF · Page ${pIdx} of ${totalPages} · Generated locally by EditifyPDF`;
-   page.drawText(foot,{x:M,y:22,size:8.5,font:mono,color:PDFLib.rgb(0.45,0.46,0.5)});
-  }
- }
-
- let bytes=await doc.save({useObjectStreams:false});
- const targetBytes=previewOnly?0:(dummyTargetKb*1024);
- if(targetBytes>bytes.length+32){
-  const out=new Uint8Array(targetBytes);
-  out.set(bytes,0);
-  out[bytes.length]=0x0A;
-  out[bytes.length+1]=0x25;
-  out.fill(0x30,bytes.length+2,targetBytes-1);
-  out[targetBytes-1]=0x0A;
-  bytes=out;
- }
- return bytes;
+/* 1. DUMMY PDF: an exact-size .pdf placeholder that is intentionally invalid (cannot be opened) */
+function buildDummyBytes(kb){
+ const n=Math.round(kb*1024),out=new Uint8Array(n);
+ for(let i=0;i<n;i+=65536)crypto.getRandomValues(out.subarray(i,Math.min(n,i+65536)));
+ const head=new TextEncoder().encode("%PDF-1.7\n%DUMMY FILE - intentionally invalid, cannot be opened\n");
+ out.set(head.subarray(0,Math.min(head.length,n)),0);
+ return out;
 }
 
 async function dummyPdf(){
- const bytes=await buildDummyPdfBytes(false);
- const pgs=+opt("dpages")||1;
- const szTag=dummyTargetKb>0?(dummyTargetKb>=1024?`-${dummyTargetKb/1024}MB`:`-${dummyTargetKb}KB`):"";
- done(new Blob([bytes],{type:PDF}),`dummy-${pgs}pg${szTag}.pdf`,`${pgs} page${pgs>1?"s":""} · ${fmt(bytes.length)}`);
+ const bytes=buildDummyBytes(dummyTargetKb);
+ const b=new Blob([bytes],{type:PDF});
+ b.isDummy=true;
+ done(b,`${dummyName()}.pdf`,`${fmt(bytes.length)} \u00b7 placeholder, cannot be opened`);
 }
 
 /* 2. PDF PAGE LAYOUT / N-UP & FORMAT CONVERTER (matches screenshot) */
@@ -1613,5 +1548,171 @@ function paintTg(){$("#themeToggle").innerHTML=isDark()?SUN:MOON}
 try{const s=localStorage.getItem("editify-theme");if(s)root.dataset.theme=s}catch(e){}
 $("#themeToggle").onclick=()=>{const n=isDark()?"light":"dark";root.dataset.theme=n;try{localStorage.setItem("editify-theme",n)}catch(e){}paintTg()};
 mq.addEventListener("change",paintTg);paintTg();
+/* ===== Password protection (AES-128, PDF standard security handler V4/R4) ===== */
+function md5(bytes){
+ const K=new Uint32Array(64),S=[7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21];
+ for(let i=0;i<64;i++)K[i]=Math.floor(Math.abs(Math.sin(i+1))*4294967296);
+ const n=bytes.length,tot=(((n+8)>>>6)+1)<<6,m=new Uint8Array(tot);m.set(bytes);m[n]=0x80;
+ const dv=new DataView(m.buffer);dv.setUint32(tot-8,(n<<3)>>>0,true);dv.setUint32(tot-4,Math.floor(n/536870912),true);
+ let a0=0x67452301,b0=0xefcdab89,c0=0x98badcfe,d0=0x10325476;
+ for(let off=0;off<tot;off+=64){
+  const M=new Uint32Array(16);for(let i=0;i<16;i++)M[i]=dv.getUint32(off+4*i,true);
+  let A=a0,B=b0,C=c0,D=d0;
+  for(let i=0;i<64;i++){
+   let F,g;
+   if(i<16){F=(B&C)|(~B&D);g=i}else if(i<32){F=(D&B)|(~D&C);g=(5*i+1)%16}else if(i<48){F=B^C^D;g=(3*i+5)%16}else{F=C^(B|~D);g=(7*i)%16}
+   F=(F+A+K[i]+M[g])>>>0;A=D;D=C;C=B;
+   B=(B+(((F<<S[i])|(F>>>(32-S[i])))>>>0))>>>0;
+  }
+  a0=(a0+A)>>>0;b0=(b0+B)>>>0;c0=(c0+C)>>>0;d0=(d0+D)>>>0;
+ }
+ const out=new Uint8Array(16),o=new DataView(out.buffer);o.setUint32(0,a0,true);o.setUint32(4,b0,true);o.setUint32(8,c0,true);o.setUint32(12,d0,true);return out;
+}
+function rc4(key,data){
+ const s=new Uint8Array(256);for(let i=0;i<256;i++)s[i]=i;
+ let j=0;for(let i=0;i<256;i++){j=(j+s[i]+key[i%key.length])&255;[s[i],s[j]]=[s[j],s[i]]}
+ const out=new Uint8Array(data.length);let a=0,b=0;
+ for(let k=0;k<data.length;k++){a=(a+1)&255;b=(b+s[a])&255;[s[a],s[b]]=[s[b],s[a]];out[k]=data[k]^s[(s[a]+s[b])&255]}
+ return out;
+}
+const catBytes=(...a)=>{const o=new Uint8Array(a.reduce((n,x)=>n+x.length,0));let p=0;for(const x of a){o.set(x,p);p+=x.length}return o};
+const PW_PAD=new Uint8Array([0x28,0xBF,0x4E,0x5E,0x4E,0x75,0x8A,0x41,0x64,0x00,0x4E,0x56,0xFF,0xFA,0x01,0x08,0x2E,0x2E,0x00,0xB6,0xD0,0x68,0x3E,0x80,0x2F,0x0C,0xA9,0xFE,0x64,0x53,0x69,0x7A]);
+const padPw=pw=>{const b=Uint8Array.from(Array.from(String(pw)).map(c=>c.charCodeAt(0)&255)).slice(0,32);return catBytes(b,PW_PAD).slice(0,32)};
+const toHex=b=>Array.from(b,x=>x.toString(16).padStart(2,"0")).join("");
+async function protectPdf(){
+ const f=items[0].f,upw=opt("upw");
+ if(!upw)throw Error("Enter a password to open the file.");
+ const rnd=crypto.getRandomValues(new Uint8Array(8)),opw=opt("opw")||(upw+toHex(rnd));
+ status("Preparing document…");
+ const src=await lib(f),saved=await src.save({useObjectStreams:false});
+ const doc=await PDFLib.PDFDocument.load(saved,{updateMetadata:false});
+ const {PDFDict,PDFArray,PDFString,PDFHexString,PDFRawStream}=PDFLib;
+ let P=-4;if(opt("nocopy"))P&=~(16|512);if(opt("noprint"))P&=~(4|2048);
+ const id=crypto.getRandomValues(new Uint8Array(16));
+ let h=md5(padPw(opw));for(let i=0;i<50;i++)h=md5(h);
+ const okey=h.slice(0,16);let O=rc4(okey,padPw(upw));
+ for(let i=1;i<=19;i++)O=rc4(okey.map(b=>b^i),O);
+ const pb=new Uint8Array(4);new DataView(pb.buffer).setInt32(0,P,true);
+ let k=md5(catBytes(padPw(upw),O,pb,id));for(let i=0;i<50;i++)k=md5(k.slice(0,16));
+ const key=k.slice(0,16);
+ let U=rc4(key,md5(catBytes(PW_PAD,id)));for(let i=1;i<=19;i++)U=rc4(key.map(b=>b^i),U);
+ U=catBytes(U,new Uint8Array(16));
+ const salt=new TextEncoder().encode("sAlT");
+ const objKey=(n,g)=>md5(catBytes(key,new Uint8Array([n&255,(n>>8)&255,(n>>16)&255,g&255,(g>>8)&255]),salt)).slice(0,16);
+ const aes=async(kb,data)=>{const iv=crypto.getRandomValues(new Uint8Array(16)),ck=await crypto.subtle.importKey("raw",kb,"AES-CBC",false,["encrypt"]);return catBytes(iv,new Uint8Array(await crypto.subtle.encrypt({name:"AES-CBC",iv},ck,data)))};
+ const encVal=async(v,kb)=>{
+  if(v instanceof PDFString||v instanceof PDFHexString)return PDFHexString.of(toHex(await aes(kb,v.asBytes())));
+  if(v instanceof PDFDict){for(const[kk,x]of v.entries()){const nv=await encVal(x,kb);if(nv!==x)v.set(kk,nv)}return v}
+  if(v instanceof PDFArray){for(let i=0;i<v.size();i++){const x=v.get(i),nv=await encVal(x,kb);if(nv!==x)v.set(i,nv)}return v}
+  return v;
+ };
+ const all=[...doc.context.enumerateIndirectObjects()];let n=0;
+ for(const[ref,obj]of all){
+  if(++n%25===0)status(`Encrypting object ${n} of ${all.length}…`);
+  const kb=objKey(ref.objectNumber,ref.generationNumber);
+  if(obj instanceof PDFRawStream){obj.contents=await aes(kb,obj.contents);await encVal(obj.dict,kb)}
+  else if(obj instanceof PDFDict||obj instanceof PDFArray)await encVal(obj,kb);
+  else if(obj instanceof PDFString||obj instanceof PDFHexString)doc.context.assign(ref,await encVal(obj,kb));
+ }
+ const enc=doc.context.obj({Filter:"Standard",V:4,R:4,Length:128,CF:{StdCF:{AuthEvent:"DocOpen",CFM:"AESV2",Length:16}},StmF:"StdCF",StrF:"StdCF",O:PDFHexString.of(toHex(O)),U:PDFHexString.of(toHex(U)),P});
+ doc.context.trailerInfo.Encrypt=doc.context.register(enc);
+ doc.context.trailerInfo.ID=doc.context.obj([PDFHexString.of(toHex(id)),PDFHexString.of(toHex(id))]);
+ const out=await doc.save({useObjectStreams:false,addDefaultPage:false,updateFieldAppearances:false});
+ done(new Blob([out],{type:PDF}),base(f)+"-protected.pdf",`AES-128 encrypted · ${fmt(out.length)}`);
+}
+
+/* ===== OCR (tesseract.js loaded on demand) ===== */
+function loadScript(u,test){
+ return new Promise((res,rej)=>{
+  if(test&&test())return res();
+  const s=document.createElement("script");s.src=u;s.onload=res;
+  s.onerror=()=>rej(Error("Could not load the OCR engine. Connect to the internet once and try again."));
+  document.head.append(s);
+ });
+}
+async function ocrPdf(){
+ const f=items[0].f;
+ status("Loading OCR engine…");
+ await loadScript("https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js",()=>window.Tesseract);
+ const lang=opt("olang"),wantPdf=opt("oout")==="pdf"&&lang!=="hin",d=await pdfjs(f);
+ const out=wantPdf?await PDFLib.PDFDocument.create():null,font=wantPdf?await out.embedFont(PDFLib.StandardFonts.Helvetica):null;
+ status("Preparing language data…");
+ const worker=await Tesseract.createWorker(lang);let txt="";
+ try{
+  for(let n=1;n<=d.numPages;n++){
+   status(`Recognising page ${n} of ${d.numPages}…`);
+   const c=await renderPage(d,n,2),{data}=await worker.recognize(c);
+   txt+=(d.numPages>1?`--- Page ${n} ---\n`:"")+(data.text||"").trim()+"\n\n";
+   if(wantPdf){
+    const im=await out.embedJpg(await(await blob(c,"image/jpeg",.8)).arrayBuffer()),p0=await d.getPage(n),v=p0.getViewport({scale:1});
+    const pg=out.addPage([v.width,v.height]);pg.drawImage(im,{x:0,y:0,width:v.width,height:v.height});
+    const sx=v.width/c.width,sy=v.height/c.height;
+    for(const w of data.words||[]){
+     const t=winAnsi(w.text||"").trim();if(!t||!w.bbox)continue;
+     const bb=w.bbox,h=(bb.y1-bb.y0)*sy,wd=(bb.x1-bb.x0)*sx;
+     const size=Math.min(Math.max(wd/font.widthOfTextAtSize(t,1),3),h*1.3);
+     pg.drawText(t,{x:bb.x0*sx,y:v.height-bb.y1*sy+h*.15,size,font,opacity:0,color:PDFLib.rgb(1,1,1)});
+    }
+   }
+   c.width=c.height=0;
+  }
+ }finally{await worker.terminate()}
+ if(!txt.replace(/---[^\n]*---|\s/g,"").length)throw Error("No text was recognised. Try a clearer scan or another language.");
+ if(wantPdf){const b=await out.save();done(new Blob([b],{type:PDF}),base(f)+"-ocr.pdf",`${d.numPages} page${d.numPages>1?"s":""} · searchable · ${fmt(b.length)}`)}
+ else{const b=new Blob([txt.trim()+"\n"],{type:"text/plain"});done(b,base(f)+"-ocr.txt",`${d.numPages} page${d.numPages>1?"s":""} · ${fmt(b.size)}`)}
+}
+
+/* ===== Recent results (use any earlier result as the next input) ===== */
+const hist=[];
+function histAdd(blob,name,info){
+ hist.unshift({id:++uid,tool:curK,name,blob,t:new Date()});
+ if(hist.length>8)hist.length=8;
+ histRender();
+}
+function histRender(){
+ const box=$("#histBox"),list=$("#histList");if(!box)return;
+ box.hidden=!hist.length;list.innerHTML="";
+ hist.forEach(h=>{
+  const row=E("div","hist-row"),m=E("div","hist-meta");
+  m.append(E("b","",h.name),E("span","",`${TOOLS[h.tool]?TOOLS[h.tool].n:""} · ${fmt(h.blob.size)} · ${h.t.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}`));
+  const bar=E("div","hist-btns"),use=E("button","btn-ghost-sm","Use as input"),dl=E("button","btn-ghost-sm","Save");
+  use.type=dl.type="button";use.disabled=!!(T&&T.noFile)||!!h.blob.isDummy;
+  use.onclick=()=>add([new File([h.blob],h.name,{type:h.blob.type})]);
+  dl.onclick=()=>{const u=URL.createObjectURL(h.blob),a=document.createElement("a");a.href=u;a.download=h.name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),6000)};
+  bar.append(use,dl);row.append(m,bar);list.append(row);
+ });
+}
+$("#histClear").onclick=()=>{hist.length=0;histRender()};
+
+/* ===== Share (phones), keyboard, install & offline ===== */
+if(navigator.share&&navigator.canShare)$("#rsh").hidden=false;
+$("#rsh").onclick=async()=>{
+ if(!cur)return;
+ try{
+  const f=new File([cur.blob],cur.name,{type:cur.blob.type||"application/octet-stream"});
+  if(navigator.canShare({files:[f]}))await navigator.share({files:[f],title:cur.name});
+  else status("Sharing this file type is not supported on this device.",1);
+ }catch(e){if(!e||e.name!=="AbortError")status("Could not share: "+(e&&e.message),1)}
+};
+$("#run").title="Run (Ctrl+Enter)";
+addEventListener("keydown",e=>{
+ if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){const r=$("#run");if(r&&!r.disabled&&r.offsetParent){e.preventDefault();r.click()}}
+});
+$("#rail").addEventListener("keydown",e=>{
+ const tabs=[...document.querySelectorAll("#rail .tool-tab")],i=tabs.indexOf(document.activeElement);if(i<0)return;
+ let n=-1;
+ if(e.key==="ArrowDown"||e.key==="ArrowRight")n=(i+1)%tabs.length;
+ else if(e.key==="ArrowUp"||e.key==="ArrowLeft")n=(i-1+tabs.length)%tabs.length;
+ else if(e.key==="Home")n=0;else if(e.key==="End")n=tabs.length-1;
+ if(n>=0){e.preventDefault();tabs[n].focus();location.hash=tabs[n].dataset.k}
+});
+let deferredInstall=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstall=e;$("#installBtn").hidden=false});
+$("#installBtn").onclick=async()=>{if(!deferredInstall)return;deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;$("#installBtn").hidden=true};
+addEventListener("appinstalled",()=>{$("#installBtn").hidden=true});
+const syncOffline=()=>{$("#offBanner").hidden=navigator.onLine};
+addEventListener("online",syncOffline);addEventListener("offline",syncOffline);syncOffline();
+if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol))addEventListener("load",()=>{fetch("sw.js",{method:"HEAD",cache:"no-store"}).then(r=>{if(r.ok)return navigator.serviceWorker.register("sw.js")}).catch(()=>{})});
+
 route();
 </script></body></html>
