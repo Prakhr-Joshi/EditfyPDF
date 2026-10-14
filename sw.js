@@ -1,5 +1,5 @@
 /* EditifyPDF service worker: caches the app shell and the CDN libraries so tools work offline after the first visit. */
-const VERSION = 'editify-v4';
+const VERSION = 'editify-v6';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'icon-180.png'];
 const CDN = /(^|\.)(cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|fonts\.googleapis\.com|fonts\.gstatic\.com|tessdata\.projectnaptha\.com)$/;
 

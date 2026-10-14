@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
-<meta name="theme-color" content="#fafafa"/><link rel="manifest" href="manifest.webmanifest"/><link rel="icon" href="icon.svg" type="image/svg+xml"/><link rel="apple-touch-icon" href="icon-180.png"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="mobile-web-app-capable" content="yes"/><title>EditifyPDF — Private, Local PDF Tools</title>
+<meta name="theme-color" content="#fafafa"/><meta name="color-scheme" content="light dark"/><meta name="apple-mobile-web-app-status-bar-style" content="default"/><script>(function(){try{var t=localStorage.getItem("editify-theme"),d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;document.querySelector('meta[name=theme-color]').content=d?"#09090b":"#fafafa";document.querySelector('meta[name=apple-mobile-web-app-status-bar-style]').content=d?"black-translucent":"default"}catch(e){}})()</script><link rel="manifest" href="manifest.webmanifest"/><link rel="icon" href="icon.svg" type="image/svg+xml"/><link rel="apple-touch-icon" href="icon-180.png"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="mobile-web-app-capable" content="yes"/><title>EditifyPDF — Private, Local PDF Tools</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -239,6 +239,53 @@ button,a,select,input,label{touch-action:manipulation;-webkit-tap-highlight-colo
 .hist-meta b{display:block;font-size:13px;word-break:break-all}.hist-meta span{font-size:12px;color:var(--text-muted)}.hist-btns{display:flex;gap:6px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 @media(max-width:860px){#installBtn{padding:8px 10px;font-size:12px}.hist-btns .btn-ghost-sm{flex:1}}
+
+/* Compact, simpler page-layout panel */
+.layout-banner{padding:12px 14px;margin-bottom:14px}
+.lb-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.lb-field{display:grid;gap:4px;flex:1 1 220px;min-width:0}
+.lb-title{font-size:12px;font-weight:700;color:var(--text-muted)}
+.lb-field select{width:100%;background:var(--surface);color:var(--text-main);border:1px solid var(--border);border-radius:8px;padding:9px 10px;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+.lb-hint{margin:10px 0 0;font-size:13px;color:var(--text-muted)}
+.layout-banner .layout-sheet{width:38px;height:30px;padding:3px;gap:2px}.layout-banner .layout-sheet.portrait{width:28px;height:38px}
+.layout-banner .layout-diagram{gap:8px}
+.layout-banner .layout-live-pv{margin-top:10px;padding-top:10px;gap:6px}
+.layout-banner .layout-live-pv canvas{max-height:150px}
+@media(max-width:860px){.lb-field select{font-size:16px;min-height:44px}.layout-banner .layout-live-pv canvas{max-height:130px}}
+
+/* ===== Workspace: smaller, clearer, easier ===== */
+html{background:var(--bg)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .mobile-nav-dock{background:rgba(18,18,21,.88)}}
+.tool-search{margin-bottom:6px}
+.tool-search input{width:100%;font:inherit;font-size:13px;color:var(--text-main);background:var(--surface-raised);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.tool-search input:focus{outline:2px solid var(--primary-blue);outline-offset:1px;background:var(--surface)}
+#railTabs{display:flex;flex-direction:column;gap:2px}
+.tool-empty{font-size:12.5px;color:var(--text-muted);padding:8px 4px}
+.rail-group-title{color:var(--text-muted)!important}
+.steps{list-style:none;display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px;padding:0}
+.steps li{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--text-muted);background:var(--surface-raised);border:1px solid var(--border);border-radius:99px;padding:5px 12px 5px 6px}
+.steps li b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface);border:1px solid var(--border);font-size:11px;color:var(--text-muted)}
+.steps li.on{color:var(--text-main);border-color:var(--text-main)}
+.steps li.on b{background:var(--accent);color:var(--accent-contrast);border-color:var(--accent)}
+.steps li.ok b{background:var(--success);color:#fff;border-color:var(--success)}
+.steps li.ok b::before{content:"\2713"}.steps li.ok b{font-size:0}.steps li.ok b::before{font-size:11px}
+@media(min-width:861px){
+ .workspace-section{padding:20px 0 56px}.section-head{margin-bottom:14px}.section-head h2{font-size:20px}.section-head p{font-size:13px}
+ .app-container{grid-template-columns:208px 1fr;gap:16px}
+ .tool-rail{padding:10px;top:84px;max-height:calc(100vh - 104px)}
+ .tool-tab{padding:7px 10px;font-size:13px;min-height:36px}
+ .rail-group-title{padding:8px 8px 3px}
+ .workspace-content{padding:18px;min-height:0}
+ .tool-header-block{padding-bottom:12px;margin-bottom:14px}.tool-info h3{font-size:18px}.tool-info p{font-size:13px}
+ .tool-grid-layout{grid-template-columns:1fr 260px;gap:16px}
+ .tool-options-panel{padding:14px}
+}
+@media(max-width:860px){
+ .tool-search{display:none}
+ #railTabs{flex-direction:row;gap:6px}
+ .steps{margin-bottom:12px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.steps::-webkit-scrollbar{display:none}
+ .steps li{white-space:nowrap;font-size:12px;padding:4px 10px 4px 5px}
+}
 </style></head><body><a class="skip-link" href="#workspace">Skip to tools</a><div class="offline-banner" id="offBanner" role="status" hidden>You are offline. Tools that already loaded keep working.</div>
 <div class="container">
 <header><a class="brand" href="#"><div class="brand-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div><span>Editify<span style="font-weight:400;opacity:.65">PDF</span></span></a>
@@ -255,45 +302,43 @@ button,a,select,input,label{touch-action:manipulation;-webkit-tap-highlight-colo
 <div class="graphic-footer"><span>Zero server roundtrips</span><span class="mono">20 Local Utilities • Ready</span></div></div></section>
 
 <section class="workspace-section" id="workspace"><div class="section-head"><h2>Document Workspace</h2><p>Select a utility from the sidebar, drop your file (or generate a dummy PDF), and preview instantly.</p></div>
-<div class="app-container"><aside class="tool-rail" id="rail" role="tablist" aria-label="PDF tools" aria-orientation="vertical"></aside>
+<div class="app-container"><aside class="tool-rail" id="rail"><div class="tool-search" role="search"><input id="toolSearch" type="search" placeholder="Find a tool…  ( / )" aria-label="Find a tool" autocomplete="off" spellcheck="false"/></div><div id="railTabs" role="tablist" aria-label="PDF tools" aria-orientation="vertical"></div><p class="tool-empty" id="toolEmpty" hidden>No tool matches. Try “merge”, “compress” or “sign”.</p></aside>
 <main class="workspace-content"><div class="tool-header-block"><div class="tool-info"><h3 id="tt">Tool</h3><p id="td">Description</p></div></div>
+<ol class="steps" id="steps" aria-label="Progress"><li data-s="1"><b>1</b> Add your file</li><li data-s="2"><b>2</b> Choose options</li><li data-s="3"><b>3</b> Get the result</li></ol>
 <div class="tool-grid-layout"><div>
 
 <!-- PDF Page Layout Interactive Banner (matches reference screenshot) -->
 <div class="layout-banner" hidden id="layoutBanner">
- <div class="layout-banner-info">
-  <span class="layout-info-badge">i</span>
-  <span>Define a new PDF layout (e.g. multiple pages per sheet) or change an existing layout (e.g. from A3 to A4).</span>
- </div>
- <div class="layout-banner-main">
-  <div class="layout-label-col">
-   <b>PDF page layout:</b>
-   <span>Format, size, pages per sheet…</span>
-  </div>
-  <div class="layout-select-wrap">
-   <span class="layout-select-icon"></span>
-   <select id="layoutQuickPreset" aria-label="PDF page layout preset">
-    <option value="orig">Original layout (1 per sheet)</option>
-    <option value="2up">2 pages per sheet (2×1)</option>
-    <option value="4up" selected>4 pages per sheet (2×2)</option>
-    <option value="6up">6 pages per sheet (3×2)</option>
-    <option value="9up">9 pages per sheet (3×3)</option>
-    <option value="16up">16 pages per sheet (4×4)</option>
-    <option value="a4">Resize pages to A4</option>
-    <option value="a3">Resize pages to A3</option>
-    <option value="letter">Resize pages to US Letter</option>
+ <div class="lb-row">
+  <label class="lb-field">
+   <span class="lb-title">Pages per sheet</span>
+   <select id="layoutQuickPreset" aria-label="Page layout">
+    <optgroup label="Put several pages on one sheet">
+     <option value="orig">1 per sheet (keep as is)</option>
+     <option value="2up">2 per sheet</option>
+     <option value="4up" selected>4 per sheet</option>
+     <option value="6up">6 per sheet</option>
+     <option value="9up">9 per sheet</option>
+     <option value="16up">16 per sheet</option>
+    </optgroup>
+    <optgroup label="Change the page size">
+     <option value="a4">Resize to A4</option>
+     <option value="a3">Resize to A3</option>
+     <option value="letter">Resize to US Letter</option>
+    </optgroup>
    </select>
-  </div>
-  <div class="layout-diagram" title="Visual layout schematic">
+  </label>
+  <div class="layout-diagram" aria-hidden="true">
    <div class="layout-sheet portrait" style="grid-template-columns:1fr"><div class="layout-cell">1</div></div>
-   <div class="layout-arrow"><svg width="28" height="18" viewBox="0 0 28 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9h24M7 4L2 9l5 5M21 4l5 5-5 5"/></svg></div>
+   <div class="layout-arrow"><svg width="22" height="14" viewBox="0 0 28 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9h24M21 4l5 5-5 5"/></svg></div>
    <div class="layout-sheet" id="layoutGridIcon" style="grid-template-columns:1fr 1fr">
     <div class="layout-cell">1</div><div class="layout-cell">2</div><div class="layout-cell">3</div><div class="layout-cell">4</div>
    </div>
   </div>
  </div>
+ <p class="lb-hint" id="layoutHint">4 pages on each A4 sheet (2 × 2).</p>
  <div class="layout-live-pv" id="layoutLiveWrap">
-  <div class="layout-live-pv-head"><span>Live Sheet 1 Layout Preview</span><span class="mono" id="layoutLiveMeta">2×2 Grid · A4</span></div>
+  <div class="layout-live-pv-head"><span>Preview of sheet 1</span><span class="mono" id="layoutLiveMeta">2×2 · A4</span></div>
   <canvas id="layoutLiveCanvas" width="420" height="297"></canvas>
  </div>
 </div>
@@ -582,12 +627,12 @@ const GROUPS=[
  ["Sign, Stamp & Refine",["sign","stamp","bates","compress","flatten","protect","meta","invert"]]
 ];
 for(const[g,ks]of GROUPS){
- $("#rail").append(E("div","rail-group-title",g));
+ $("#railTabs").append(E("div","rail-group-title",g));
  for(const k of ks){
   const b=E("button","tool-tab");b.type="button";b.dataset.k=k;b.setAttribute("role","tab");
   b.innerHTML=`<span class="tab-icon">${TOOLS[k].ic}</span><span>${TOOLS[k].n}</span>`;
   b.onclick=()=>{location.hash=k};
-  $("#rail").append(b);
+  $("#railTabs").append(b);
  }
 }
 
@@ -661,7 +706,12 @@ function syncLayoutUi(fromPreset=false){
   for(let i=1;i<=cols*rows;i++)icon.append(E("div","layout-cell",nup>=16?"":String(i)));
  }
  const meta=$("#layoutLiveMeta");
- if(meta)meta.textContent=`${cols}×${rows} (${nup}/sheet) · ${ps}`;
+ if(meta)meta.textContent=nup===1?(ps==="ORIG"?"Original":ps):`${cols}×${rows} · ${ps==="ORIG"?"Original size":ps}`;
+ const hint=$("#layoutHint");
+ if(hint){
+  const sz=ps==="ORIG"?"":" "+ps;
+  hint.textContent=nup===1?(ps==="ORIG"?"Pages stay exactly as they are.":`Every page is resized to ${ps==="LETTER"?"US Letter":ps}.`):`${nup} pages are placed on each${sz} sheet (${cols} across × ${rows} down).`;
+ }
  clearTimeout(layoutPvTimer);
  layoutPvTimer=setTimeout(drawLayoutLivePreview,120);
 }
@@ -750,7 +800,7 @@ function scheduleDummyPreview(){
 
 function openTool(k){
  T=TOOLS[k];curK=k;items=[];srcFile=null;clearRes();status("");
- $(".tool-grid-layout").hidden=!!T.cv;$("#cvApp").hidden=!T.cv;
+ $(".tool-grid-layout").hidden=!!T.cv;$("#steps").hidden=!!T.cv;$("#cvApp").hidden=!T.cv;
  $("#layoutBanner").hidden=k!=="layout";
  $("#dummyPreviewCard").hidden=k!=="dummy";
  {const fl=$("#fname")&&$("#fname").closest("label");if(fl){fl.hidden=k==="dummy";if(k==="dummy")$("#fname").value=""}}
@@ -865,7 +915,7 @@ async function thumb(d,n,w=220){const p=await d.getPage(n),v0=p.getViewport({sca
  const c=E("canvas");c.width=v.width;c.height=v.height;const x=c.getContext("2d");x.fillStyle="#ffffff";x.fillRect(0,0,c.width,c.height);
  await p.render({canvasContext:x,viewport:v}).promise;return c.toDataURL("image/jpeg",.75)}
 
-function render(){
+function render(){stepSync();
  const g=$("#grid");g.innerHTML="";
  items.forEach((it,i)=>{
   const c=E("div","doc-card"+(it.sel?" sel":"")),th=E("div","thumb-frame"),im=E("img");
@@ -906,7 +956,7 @@ $("#bDel").onclick=()=>{
 function fmt(n){return n<1024?n+" B":n<1048576?(n/1024).toFixed(1)+" KB":(n/1048576).toFixed(2)+" MB"}
 function status(m,e){const s=$("#st");s.textContent=m;s.className=e?"err":""}
 function clearRes(){
- $("#res").classList.remove("show");
+ $("#res").classList.remove("show");stepSync();
  cur=null;
  if(curUrl){URL.revokeObjectURL(curUrl);curUrl=null}
  const rl=$("#rl");
@@ -919,7 +969,7 @@ function done(blob,name,info){
  cur={blob,name};
  curUrl=URL.createObjectURL(blob);
  const rl=$("#rl");rl.href=curUrl;rl.download=name;
- $("#rn").textContent=name;$("#ri").textContent=info||fmt(blob.size);$("#res").classList.add("show");histAdd(blob,name,info);
+ $("#rn").textContent=name;$("#ri").textContent=info||fmt(blob.size);$("#res").classList.add("show");stepSync();histAdd(blob,name,info);
  if($('#autoPv')&&$('#autoPv').checked&&!blob.isDummy)openPv();
 }
 
@@ -1544,7 +1594,7 @@ async function stamp(){
 const root=document.documentElement,mq=matchMedia("(prefers-color-scheme:dark)");
 const SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
 const isDark=()=>root.dataset.theme?root.dataset.theme==="dark":mq.matches;
-function paintTg(){$("#themeToggle").innerHTML=isDark()?SUN:MOON}
+function paintTg(){syncThemeColor();$("#themeToggle").innerHTML=isDark()?SUN:MOON}
 try{const s=localStorage.getItem("editify-theme");if(s)root.dataset.theme=s}catch(e){}
 $("#themeToggle").onclick=()=>{const n=isDark()?"light":"dark";root.dataset.theme=n;try{localStorage.setItem("editify-theme",n)}catch(e){}paintTg()};
 mq.addEventListener("change",paintTg);paintTg();
@@ -1713,6 +1763,38 @@ addEventListener("appinstalled",()=>{$("#installBtn").hidden=true});
 const syncOffline=()=>{$("#offBanner").hidden=navigator.onLine};
 addEventListener("online",syncOffline);addEventListener("offline",syncOffline);syncOffline();
 if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol))addEventListener("load",()=>{fetch("sw.js",{method:"HEAD",cache:"no-store"}).then(r=>{if(r.ok)return navigator.serviceWorker.register("sw.js")}).catch(()=>{})});
+
+/* ===== Tool search, progress steps, theme colour ===== */
+function stepSync(){
+ const st=$("#steps");if(!st)return;
+ const resShown=$("#res")&&$("#res").classList.contains("show");
+ const n=resShown?3:((items&&items.length)||(T&&T.noFile)?2:1);
+ st.querySelectorAll("li").forEach(li=>{const k=+li.dataset.s;li.classList.toggle("on",k===n);li.classList.toggle("ok",k<n)});
+}
+function filterTools(q){
+ q=q.trim().toLowerCase();let title=null,n=0;
+ const fin=()=>{if(title)title.hidden=!!q&&n===0};
+ for(const el of $("#railTabs").children){
+  if(el.classList.contains("rail-group-title")){fin();title=el;n=0}
+  else{const hit=!q||el.textContent.toLowerCase().includes(q)||el.dataset.k.includes(q)||(TOOLS[el.dataset.k].d||"").toLowerCase().includes(q);el.hidden=!hit;if(hit)n++}
+ }
+ fin();
+ $("#toolEmpty").hidden=!q||[...document.querySelectorAll("#railTabs .tool-tab")].some(t=>!t.hidden);
+}
+$("#toolSearch").addEventListener("input",e=>filterTools(e.target.value));
+$("#toolSearch").addEventListener("keydown",e=>{
+ if(e.key==="Enter"){const t=[...document.querySelectorAll("#railTabs .tool-tab")].find(x=>!x.hidden);if(t){e.preventDefault();location.hash=t.dataset.k;t.focus()}}
+ else if(e.key==="Escape"){e.target.value="";filterTools("")}
+});
+addEventListener("keydown",e=>{
+ if(e.key==="/"&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{}).tagName||"")&&$("#toolSearch").offsetParent){e.preventDefault();$("#toolSearch").focus()}
+});
+function syncThemeColor(){
+ const dark=document.documentElement.dataset.theme?document.documentElement.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+ const m=document.querySelector('meta[name=theme-color]'),a=document.querySelector('meta[name=apple-mobile-web-app-status-bar-style]');
+ if(m)m.content=dark?"#09090b":"#fafafa";
+ if(a)a.content=dark?"black-translucent":"default";
+}
 
 route();
 </script></body></html>
