@@ -1,33 +1,32 @@
-# EditifyPDF
+# 📄 EditfyPDF
 
-Private PDF tools that run entirely in your browser. Nothing is uploaded.
+> A lightweight, locally-running PDF editor built with privacy and simplicity in mind. No random server uploads, no bloated software—just edit your PDFs right where you should: on your own machine.
 
-## Deploy on GitHub Pages
-1. Put every file from this folder in the root of your repository (`index.html`, `sw.js`, `manifest.webmanifest`, the `icon-*` files and `icon.svg`).
-2. Repository **Settings → Pages → Build and deployment → Deploy from a branch → main / (root)**.
-3. Open `https://<your-username>.github.io/<repo-name>/` and use your browser's **Install app** option.
+[![Live Demo](https://img.shields.io/badge/website-live-brightgreen)](https://prakhr-joshi.github.io/EditfyPDF/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-`index.html` also works on its own: without `sw.js` and the manifest it simply skips the install and offline features.
+---
 
-## Offline use
-* After the first online visit the service worker (`sw.js`) caches the app and its CDN libraries, so the tools keep working offline.
-* The OCR tool downloads the OCR engine and the language data once, then caches them as well.
+## ✨ Features
 
-## Optional: host the libraries yourself (no CDN)
-Download these four files into a `libs/` folder next to `index.html`. They are used automatically when the CDN cannot be reached.
+- **100% Client-Side / Local:** Your files never leave your device or get uploaded to unknown servers. 
+- **Lightning Fast:** Lightweight web application that loads instantly without heavy background infrastructure.
+- **Clean UI:** Designed for a frictionless, clutter-free editing experience.
+- **Accessible Anywhere:** Hosted via GitHub Pages for quick access right inside your modern web browser.
 
-| File to create | Download from |
-|---|---|
-| `libs/pdf-lib.min.js` | https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js |
-| `libs/pdf.min.js` | https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js |
-| `libs/pdf.worker.min.js` | https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js |
-| `libs/jszip.min.js` | https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js |
+---
 
-## Keyboard shortcuts
-* **Ctrl/Cmd + Enter**: run the current tool
-* **Arrow keys, Home, End** (with the tool list focused): switch tools
-* **Esc**: close the preview panel
+## 🚀 Getting Started
 
-## Notes
-* Password protection uses AES-128 (PDF standard security handler). Copy and print restrictions are advisory: some PDF software ignores them.
-* OCR needs an internet connection the first time it runs.
+You can use the application instantly via the live web deployment, or run it locally on your machine.
+
+### Using the Live App
+Visit the live deployment here: 
+👉 **[https://prakhr-joshi.github.io/EditfyPDF/](https://prakhr-joshi.github.io/EditfyPDF/)**
+
+### Running Locally
+To run a local development copy:
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/prakhr-joshi/EditfyPDF.git](https://github.com/prakhr-joshi/EditfyPDF.git)
